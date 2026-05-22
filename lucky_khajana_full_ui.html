@@ -1,0 +1,1056 @@
+
+<h2 class="sr-only">Lucky Khajana gaming app — interactive mockup with 10 screens: Splash, Home, Aviator, Color Game, Wallet, Refer, Promo, History, Profile, Admin Panel</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.phone-wrap{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:16px;display:flex;flex-direction:column;align-items:center}
+.phone{width:320px;background:#0a0a14;border-radius:28px;overflow:hidden;border:1.5px solid var(--color-border-secondary);min-height:580px;display:flex;flex-direction:column}
+.screen{display:none;flex:1;flex-direction:column;overflow:hidden}
+.screen.on{display:flex}
+
+.nav-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px;width:100%;max-width:360px}
+.np{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);transition:all .15s}
+.np.on{background:var(--color-background-warning);border-color:#BA7517;color:#412402}
+.np:hover:not(.on){border-color:var(--color-border-secondary);color:var(--color-text-primary)}
+
+.s-bg{background:#0a0a14;color:#e0e0f0;flex:1;overflow:hidden;display:flex;flex-direction:column}
+.gold{color:#f5c518}
+.dim{color:#7070a0}
+.neon{color:#39ff14}
+.red-c{color:#e84040}
+.green-c{color:#00c851}
+.violet-c{color:#9c27b0}
+
+.top-bar{background:#0f0f1e;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.logo-row{display:flex;align-items:center;gap:7px}
+.logo-box{width:28px;height:28px;background:#f5c518;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#412402}
+.logo-text .l1{font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1px;display:block;line-height:1}
+.logo-text .l2{font-size:11px;font-weight:500;color:#e0e0f0;display:block;line-height:1.2}
+.bal-chip{background:#1a1a2e;border:0.5px solid #f5c51844;border-radius:20px;padding:4px 10px;display:flex;align-items:center;gap:4px}
+.bal-chip .bv{font-size:11px;font-weight:500;color:#f5c518}
+
+.bnav{background:#0f0f1e;border-top:0.5px solid #1e1e38;padding:6px 0 4px;display:flex;flex-shrink:0}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+.bni i{font-size:16px;color:#555570}
+.bni span{font-size:9px;color:#555570;font-weight:500}
+.bni.on i,.bni.on span{color:#f5c518}
+
+.wbar{display:flex;gap:6px;padding:8px 10px;background:#0f0f1e;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.wbtn{flex:1;padding:7px 4px;border-radius:8px;border:none;font-size:11px;font-weight:500;cursor:pointer;text-align:center}
+.wdep{background:#00c851;color:#173404}
+.wwit{background:#1a1a2e;border:0.5px solid #2a2a3e;color:#b0b0c8}
+.wref{background:#1a1a2e;border:0.5px solid #f5c51844;color:#f5c518}
+
+.ticker-bar{background:#111126;padding:6px 10px;display:flex;align-items:center;gap:6px;border-bottom:0.5px solid #1e1e38;flex-shrink:0;overflow:hidden}
+.tick-lbl{background:#f5c51822;border:0.5px solid #f5c51844;color:#f5c518;font-size:9px;font-weight:500;padding:1px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+.tick-txt{font-size:10px;color:#555570;white-space:nowrap;overflow:hidden}
+
+.scroll-area{flex:1;overflow-y:auto;scrollbar-width:none}
+.scroll-area::-webkit-scrollbar{display:none}
+
+.section-lbl{font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:10px 10px 4px}
+
+.ggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 8px 8px}
+.gc{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;padding:9px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:border-color .15s}
+.gc:hover{border-color:#f5c51866}
+.gc i{font-size:20px;color:#8080b0}
+.gc span{font-size:9px;color:#9090b0;text-align:center;line-height:1.2}
+.gc.hot i{color:#e84040}
+.gc.new i{color:#39ff14}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 8px 6px}
+.fcard{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;padding:10px;cursor:pointer;transition:border-color .15s}
+.fcard:hover{border-color:#f5c51866}
+.fcard .fi{font-size:22px;margin-bottom:5px}
+.fcard .fn{font-size:11px;font-weight:500;color:#f5c518}
+.fcard .fs{font-size:10px;color:#555570;margin-top:2px}
+.fcard .fl{font-size:10px;color:#39ff14;margin-top:3px;font-weight:500}
+
+.winner-row{display:flex;gap:6px;padding:0 8px 10px;overflow-x:auto;scrollbar-width:none}
+.winner-row::-webkit-scrollbar{display:none}
+.wchip{background:#131328;border:0.5px solid #1e1e38;border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.wav{width:22px;height:22px;border-radius:50%;background:#f5c518;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;color:#412402}
+.wamt{font-size:10px;font-weight:500;color:#39ff14;margin-left:4px}
+
+.banner-area{background:#121230;padding:14px 12px;border-bottom:0.5px solid #1e1e38;text-align:center;flex-shrink:0}
+.banner-area h3{font-size:14px;font-weight:500;color:#f5c518}
+.banner-area p{font-size:10px;color:#7070a0;margin-top:3px}
+.play-cta{display:inline-block;margin-top:8px;background:#f5c518;color:#412402;padding:5px 16px;border-radius:20px;font-size:11px;font-weight:500;border:none;cursor:pointer}
+
+.avia-sky{background:#08081a;height:140px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-bottom:0.5px solid #1e1e38;overflow:hidden}
+.avia-mult-big{font-size:36px;font-weight:500;color:#39ff14;z-index:2}
+.avia-plane{position:absolute;font-size:20px;z-index:3}
+.avia-status{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:500;padding:3px 10px;border-radius:20px;z-index:4;white-space:nowrap}
+.ast-w{background:#ffb30022;color:#ffb300;border:0.5px solid #ffb30044}
+.ast-f{background:#39ff1422;color:#39ff14;border:0.5px solid #39ff1444}
+.ast-c{background:#e8404022;color:#e84040;border:0.5px solid #e8404044}
+
+.hmults{display:flex;gap:4px;padding:6px 8px;overflow-x:auto;scrollbar-width:none;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.hmults::-webkit-scrollbar{display:none}
+.hmc{background:#131328;border-radius:5px;padding:2px 7px;font-size:10px;font-weight:500;flex-shrink:0;border:0.5px solid transparent}
+.hmc.lo{color:#e84040;border-color:#e8404033}
+.hmc.mi{color:#f5c518;border-color:#f5c51833}
+.hmc.hi{color:#39ff14;border-color:#39ff1433}
+
+.betzone{padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.bbox{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;padding:9px}
+.blbl{font-size:9px;color:#555570;font-weight:500;letter-spacing:1px;margin-bottom:5px}
+.qbs{display:flex;gap:3px;margin-bottom:5px;flex-wrap:wrap}
+.qb-btn{background:#0d0d22;border:0.5px solid #252540;border-radius:5px;padding:3px 5px;font-size:9px;font-weight:500;color:#7070a0;cursor:pointer}
+.binp{width:100%;background:#0d0d22;border:0.5px solid #1e1e38;border-radius:7px;padding:6px 8px;color:#e0e0f0;font-size:12px;text-align:center;margin-bottom:5px}
+.bet-action{width:100%;padding:7px;border-radius:7px;border:none;font-size:10px;font-weight:500;cursor:pointer}
+.bplace{background:#f5c518;color:#412402}
+.bcash{background:#39ff14;color:#173404;margin-top:4px}
+
+.cpmode-row{display:flex;gap:4px;padding:7px 8px;background:#0f0f1e;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.cpm-btn{flex:1;padding:5px 2px;border-radius:6px;font-size:10px;font-weight:500;text-align:center;cursor:pointer;background:#131328;border:0.5px solid #252540;color:#7070a0;transition:all .15s}
+.cpm-btn.on{background:#f5c518;color:#412402;border-color:#f5c518}
+
+.cptimer-box{background:#0f0f1e;padding:11px;text-align:center;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.cp-round-lbl{font-size:9px;color:#555570;letter-spacing:1px;margin-bottom:5px}
+.cp-ring{width:60px;height:60px;margin:0 auto 6px;position:relative}
+.cp-ring svg{transform:rotate(-90deg)}
+.cp-cnt-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:18px;font-weight:500;color:#39ff14}
+.cp-info{font-size:10px;color:#555570}
+.cp-info strong{color:#f5c518}
+
+.color-btns{display:flex;gap:6px;padding:8px 8px 4px}
+.cbtn{flex:1;padding:10px 4px;border-radius:10px;border:none;font-size:11px;font-weight:500;text-align:center;cursor:pointer;transition:all .15s}
+.cbtn .pay{font-size:9px;font-weight:400;opacity:.8;margin-top:2px}
+.cbtn.sel{outline:2px solid #fff;outline-offset:1px}
+.cpg{background:#00c851;color:#173404}
+.cpv{background:#9c27b0;color:#eeedfe}
+.cpr{background:#e84040;color:#fcebeb}
+
+.numgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:4px 8px 6px}
+.nbtn{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;cursor:pointer;border:2px solid transparent}
+.nbtn.sel{border-color:#fff}
+.ng{background:#00c851;color:#173404}
+.nr{background:#e84040;color:#fcebeb}
+.nv{background:#9c27b0;color:#eeedfe}
+
+.chips-row{display:flex;gap:5px;padding:0 8px 6px}
+.chip-btn{background:#131328;border:0.5px solid #252540;border-radius:6px;padding:5px 9px;font-size:10px;font-weight:500;color:#7070a0;cursor:pointer}
+.chip-btn.on{background:#f5c51822;border-color:#f5c518;color:#f5c518}
+
+.cp-result-box{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;margin:0 8px 8px;padding:10px;text-align:center}
+.res-ball-inner{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;margin:0 auto 5px;opacity:0;transform:scale(.6);transition:all .35s}
+.res-ball-inner.show{opacity:1;transform:scale(1)}
+
+.cphist-row{display:flex;gap:4px;padding:0 8px 8px;overflow-x:auto;scrollbar-width:none}
+.cphist-row::-webkit-scrollbar{display:none}
+.cphb{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;flex-shrink:0}
+.chg{background:#00c851;color:#173404}
+.chr{background:#e84040;color:#fcebeb}
+.chv{background:#9c27b0;color:#eeedfe}
+
+.wallet-card{background:#131328;border:0.5px solid #f5c51844;border-radius:12px;margin:10px;padding:16px;text-align:center}
+.wallet-bal{font-size:30px;font-weight:500;color:#f5c518;margin:4px 0}
+.wallet-sub{font-size:10px;color:#555570}
+.wallet-actions{display:flex;gap:6px;margin-top:10px}
+.tx-list{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;margin:0 10px;overflow:hidden}
+.tx-row{display:flex;align-items:center;gap:8px;padding:9px 10px;border-bottom:0.5px solid #111126}
+.tx-row:last-child{border-bottom:none}
+.tx-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.tx-ico.in{background:#00c85122}
+.tx-ico.out{background:#e8404022}
+.tx-info{flex:1}
+.tx-nm{font-size:11px;color:#c0c0d8}
+.tx-dt{font-size:9px;color:#555570;margin-top:2px}
+.tx-amt{font-size:11px;font-weight:500;text-align:right}
+.sp{font-size:8px;padding:1px 5px;border-radius:10px;font-weight:500;display:block;margin-top:2px;text-align:center}
+.sp-s{background:#00c85122;color:#00c851}
+.sp-p{background:#ffb30022;color:#ffb300}
+.sp-r{background:#e8404022;color:#e84040}
+
+.ref-hero{background:#131328;border:0.5px solid #f5c51833;border-radius:12px;margin:10px;padding:14px;text-align:center}
+.ref-hero h3{font-size:13px;font-weight:500;color:#f5c518}
+.ref-hero p{font-size:10px;color:#555570;margin-top:4px;line-height:1.5}
+.ref-code-box{background:#0d0d22;border:1px dashed #f5c51855;border-radius:8px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;margin:10px 0}
+.ref-code{font-size:16px;font-weight:500;color:#f5c518;letter-spacing:2px}
+.copy-btn{background:#f5c518;color:#412402;border:none;font-size:9px;font-weight:500;padding:4px 9px;border-radius:6px;cursor:pointer}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;padding:0 10px}
+.scard{background:#131328;border:0.5px solid #1e1e38;border-radius:8px;padding:9px;text-align:center}
+.sv{font-size:14px;font-weight:500;color:#f5c518}
+.sl{font-size:9px;color:#555570;margin-top:2px}
+
+.promo-banner{border-radius:10px;padding:12px 14px;margin:0 10px 7px;position:relative;overflow:hidden}
+.promo-banner h3{font-size:12px;font-weight:500}
+.promo-banner p{font-size:10px;margin-top:2px;opacity:.75}
+.promo-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:500;padding:4px 9px;border-radius:6px;background:rgba(0,0,0,.2)}
+.lb-card{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;margin:0 10px;overflow:hidden}
+.lb-row{display:flex;align-items:center;gap:7px;padding:8px 10px;border-bottom:0.5px solid #111126;font-size:10px}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{width:18px;font-size:10px;font-weight:500}
+.lb-name{flex:1;color:#c0c0d8}
+.lb-prize{color:#39ff14;font-weight:500}
+
+.hist-tabs{display:flex;background:#0f0f1e;border-bottom:0.5px solid #1e1e38;flex-shrink:0}
+.htab{flex:1;padding:8px 4px;text-align:center;font-size:10px;font-weight:500;color:#555570;cursor:pointer;border-bottom:2px solid transparent}
+.htab.on{color:#f5c518;border-bottom-color:#f5c518}
+.hsec{display:none;padding:8px}
+.hsec.on{display:block}
+
+.prof-hero{display:flex;align-items:center;gap:10px;background:#131328;border:0.5px solid #1e1e38;border-radius:12px;margin:10px;padding:12px}
+.prof-av{width:44px;height:44px;border-radius:50%;background:#f5c518;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;color:#412402;flex-shrink:0}
+.vip-badge{display:inline-block;background:#f5c51822;border:0.5px solid #f5c51844;color:#f5c518;font-size:8px;font-weight:500;padding:2px 6px;border-radius:10px;margin-top:3px}
+.menu-group{background:#131328;border:0.5px solid #1e1e38;border-radius:10px;margin:0 10px 8px;overflow:hidden}
+.menu-item{display:flex;align-items:center;gap:8px;padding:10px;border-bottom:0.5px solid #111126;cursor:pointer}
+.menu-item:last-child{border-bottom:none}
+.mico{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.mtxt{flex:1;font-size:11px;color:#b0b0c8}
+.marr{color:#333355;font-size:12px}
+
+.admin-screen{background:#070710;flex:1;overflow-y:auto}
+.admin-screen::-webkit-scrollbar{display:none}
+.admin-hdr{background:#0d0d1e;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #1e1e38}
+.admin-badge{background:#f5c518;color:#412402;font-size:9px;font-weight:500;padding:2px 8px;border-radius:10px}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px}
+.mcard{background:#111126;border:0.5px solid #1e1e38;border-radius:10px;padding:11px}
+.mv{font-size:18px;font-weight:500;color:#f5c518}
+.mv.green{color:#39ff14}
+.mv.red{color:#e84040}
+.ml{font-size:9px;color:#555570;margin-top:3px}
+.mt{font-size:9px;color:#39ff14;margin-top:4px}
+.ctrl-panel{background:#111126;border:0.5px solid #f5c51833;border-radius:10px;margin:0 10px 10px;padding:11px}
+.ctrl-title{font-size:10px;color:#f5c518;font-weight:500;margin-bottom:9px}
+.ctrl-row{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#7070a0;margin-bottom:4px}
+.ctrl-row strong{color:#f5c518}
+.ctrl-row input[type=range]{width:120px;accent-color:#f5c518}
+.admin-table{background:#111126;border:0.5px solid #1e1e38;border-radius:10px;margin:0 10px 10px;overflow:hidden}
+.atr{display:flex;align-items:center;padding:8px 10px;border-bottom:0.5px solid #151530;gap:6px;font-size:10px}
+.atr:last-child{border-bottom:none}
+.abtn{font-size:9px;padding:3px 7px;border-radius:5px;font-weight:500;cursor:pointer;border:none}
+.ab-ok{background:#00c85122;color:#00c851;border:0.5px solid #00c85144}
+.ab-no{background:#e8404022;color:#e84040;border:0.5px solid #e8404044}
+.chart-bar{background:#111126;border:0.5px solid #1e1e38;border-radius:10px;margin:0 10px 10px;padding:11px}
+.bars{display:flex;align-items:flex-end;gap:4px;height:60px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center}
+.bar-fill{width:100%;border-radius:3px 3px 0 0;position:relative}
+.bar-day{font-size:8px;color:#555570;margin-top:3px}
+
+.place-bet-btn{width:100%;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:500;background:#f5c518;color:#412402;cursor:pointer;margin-top:4px}
+</style>
+
+<div class="phone-wrap">
+  <div class="phone">
+
+    <!-- SPLASH -->
+    <div id="sc-splash" class="screen on s-bg" style="align-items:center;justify-content:center;text-align:center;gap:10px;padding:24px">
+      <div style="width:72px;height:72px;background:#f5c518;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#412402">
+        <i class="ti ti-coins" aria-hidden="true"></i>
+      </div>
+      <div style="font-size:22px;font-weight:500;color:#f5c518;letter-spacing:1px">LUCKY</div>
+      <div style="font-size:18px;font-weight:500;color:#e0e0f0;letter-spacing:2px;margin-top:-8px">KHAJANA</div>
+      <div style="font-size:10px;color:#555570;letter-spacing:2px;text-transform:uppercase">Win Big · Play Smart</div>
+      <div style="display:flex;gap:7px;margin-top:10px">
+        <div style="background:#131328;border:0.5px solid #1e1e38;border-radius:6px;padding:4px 10px;font-size:9px;color:#7070a0"><i class="ti ti-device-gamepad-2" style="font-size:11px" aria-hidden="true"></i> 10 Games</div>
+        <div style="background:#131328;border:0.5px solid #1e1e38;border-radius:6px;padding:4px 10px;font-size:9px;color:#e84040"><i class="ti ti-circle-dot" style="font-size:11px" aria-hidden="true"></i> Live</div>
+        <div style="background:#131328;border:0.5px solid #1e1e38;border-radius:6px;padding:4px 10px;font-size:9px;color:#f5c518"><i class="ti ti-currency-rupee" style="font-size:11px" aria-hidden="true"></i> Real ₹</div>
+      </div>
+      <div style="width:160px;height:3px;background:#1a1a2e;border-radius:2px;margin-top:14px;overflow:hidden">
+        <div style="height:100%;width:70%;background:#f5c518;border-radius:2px;animation:loadbar 1.8s ease-in-out infinite alternate"></div>
+      </div>
+      <div style="font-size:9px;color:#333355;margin-top:4px">Loading game engine...</div>
+      <style>@keyframes loadbar{from{width:20%}to{width:90%}}</style>
+    </div>
+
+    <!-- HOME -->
+    <div id="sc-home" class="screen s-bg">
+      <div class="top-bar">
+        <div class="logo-row">
+          <div class="logo-box"><i class="ti ti-coins" aria-hidden="true"></i></div>
+          <div class="logo-text"><span class="l1">LUCKY</span><span class="l2">KHAJANA</span></div>
+        </div>
+        <div class="bal-chip"><i class="ti ti-currency-rupee" style="font-size:10px;color:#f5c518" aria-hidden="true"></i><span class="bv" id="h-bal">2,450</span></div>
+        <button style="background:none;border:none;cursor:pointer" aria-label="Notifications"><i class="ti ti-bell" style="font-size:16px;color:#7070a0"></i></button>
+      </div>
+      <div class="wbar">
+        <button class="wbtn wdep" onclick="showToast('Deposit modal opens here')">+ Deposit</button>
+        <button class="wbtn wwit" onclick="showToast('Withdraw modal opens here')"><i class="ti ti-arrow-up" style="font-size:11px" aria-hidden="true"></i> Withdraw</button>
+        <button class="wbtn wref" onclick="showNav('refer')"><i class="ti ti-gift" style="font-size:11px" aria-hidden="true"></i> Refer</button>
+      </div>
+      <div class="ticker-bar">
+        <span class="tick-lbl">WINNERS</span>
+        <span class="tick-txt">Rahul won ₹4,200 in Aviator  •  Priya won ₹1,800 in Color  •  Amit won ₹8,500 in Lucky Lut  •  Vikash won ₹12,000</span>
+      </div>
+      <div class="scroll-area">
+        <div class="banner-area">
+          <h3><i class="ti ti-trophy" style="font-size:13px" aria-hidden="true"></i> Win up to ₹1,00,000</h3>
+          <p>Color Prediction · Aviator · Win Go · Lucky Lut</p>
+          <button class="play-cta" onclick="showNav('color')">Play Color Game Now</button>
+        </div>
+        <div class="section-lbl">Featured Games</div>
+        <div class="feat-grid">
+          <div class="fcard" onclick="showNav('color')">
+            <div class="fi"><i class="ti ti-circle-dot" style="font-size:22px;color:#e84040" aria-hidden="true"></i></div>
+            <div class="fn">Color Game</div>
+            <div class="fs">Predict & win</div>
+            <div class="fl">412 playing</div>
+          </div>
+          <div class="fcard" onclick="showNav('aviator')">
+            <div class="fi"><i class="ti ti-plane" style="font-size:22px;color:#39ff14" aria-hidden="true"></i></div>
+            <div class="fn">Aviator</div>
+            <div class="fs">Multiplier crash</div>
+            <div class="fl">284 playing</div>
+          </div>
+        </div>
+        <div class="section-lbl">All Games</div>
+        <div class="ggrid">
+          <div class="gc hot" onclick="showNav('color')"><i class="ti ti-circle-dot"></i><span>Color</span></div>
+          <div class="gc new" onclick="showNav('aviator')"><i class="ti ti-plane"></i><span>Aviator</span></div>
+          <div class="gc"><i class="ti ti-rocket"></i><span>Advitor</span></div>
+          <div class="gc"><i class="ti ti-feather"></i><span>Bird Fly</span></div>
+          <div class="gc hot"><i class="ti ti-coins"></i><span>Lucky Lut</span></div>
+          <div class="gc"><i class="ti ti-target"></i><span>Win Go</span></div>
+          <div class="gc"><i class="ti ti-wheel"></i><span>Spin</span></div>
+          <div class="gc"><i class="ti ti-dice-5"></i><span>Dice</span></div>
+          <div class="gc new"><i class="ti ti-ticket"></i><span>Lottery</span></div>
+          <div class="gc"><i class="ti ti-playing-card"></i><span>Card Pick</span></div>
+        </div>
+        <div class="section-lbl">Recent Winners</div>
+        <div class="winner-row">
+          <div class="wchip"><div class="wav">RK</div><div><div style="font-size:9px;color:#b0b0c8">Rahul K***</div><div style="font-size:8px;color:#555570">Aviator</div></div><span class="wamt">+₹4,200</span></div>
+          <div class="wchip"><div class="wav">PM</div><div><div style="font-size:9px;color:#b0b0c8">Priya M***</div><div style="font-size:8px;color:#555570">Color</div></div><span class="wamt">+₹1,800</span></div>
+          <div class="wchip"><div class="wav">AS</div><div><div style="font-size:9px;color:#b0b0c8">Amit S***</div><div style="font-size:8px;color:#555570">Lucky Lut</div></div><span class="wamt">+₹8,500</span></div>
+          <div class="wchip"><div class="wav">VK</div><div><div style="font-size:9px;color:#b0b0c8">Vikash K***</div><div style="font-size:8px;color:#555570">Win Go</div></div><span class="wamt">+₹12,000</span></div>
+        </div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="bnav">
+        <div class="bni on" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- AVIATOR -->
+    <div id="sc-aviator" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-plane" style="font-size:13px" aria-hidden="true"></i> Aviator</span>
+        <div class="bal-chip"><i class="ti ti-currency-rupee" style="font-size:10px;color:#f5c518" aria-hidden="true"></i><span class="bv" id="av-bal">2,450</span></div>
+      </div>
+      <div class="avia-sky">
+        <div class="avia-status ast-w" id="av-status">Next round in 5s</div>
+        <div class="avia-mult-big" id="av-mult">1.00×</div>
+        <div class="avia-plane" id="av-plane" style="left:15%;bottom:16px"><i class="ti ti-plane" style="color:#39ff14;font-size:20px" aria-hidden="true"></i></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#0f0f1e;border-bottom:0.5px solid #1e1e38;font-size:9px;color:#555570;flex-shrink:0">
+        <span>Players: <strong class="gold">142</strong></span>
+        <span>Pool: <strong class="gold">₹14,200</strong></span>
+        <span>RTP: <strong class="gold">85%</strong></span>
+      </div>
+      <div class="hmults" id="av-hist">
+        <span class="hmc lo">1.2×</span><span class="hmc mi">3.5×</span><span class="hmc hi">12.4×</span>
+        <span class="hmc lo">1.8×</span><span class="hmc mi">5.2×</span><span class="hmc hi">28.0×</span>
+        <span class="hmc lo">2.1×</span><span class="hmc mi">7.8×</span><span class="hmc lo">1.5×</span>
+      </div>
+      <div class="scroll-area">
+        <div class="betzone">
+          <div class="bbox">
+            <div class="blbl">Bet A</div>
+            <div class="qbs">
+              <span class="qb-btn" onclick="setAv('a',10)">₹10</span>
+              <span class="qb-btn" onclick="setAv('a',50)">₹50</span>
+              <span class="qb-btn" onclick="setAv('a',100)">₹100</span>
+            </div>
+            <input class="binp" type="number" id="av-a" value="100" min="10" step="10">
+            <button class="bet-action bplace" id="btn-a-p" onclick="avBet('a')">Place Bet A</button>
+            <button class="bet-action bcash" id="btn-a-c" onclick="avCash('a')" disabled style="opacity:.4">Cash Out A</button>
+          </div>
+          <div class="bbox">
+            <div class="blbl">Bet B</div>
+            <div class="qbs">
+              <span class="qb-btn" onclick="setAv('b',10)">₹10</span>
+              <span class="qb-btn" onclick="setAv('b',50)">₹50</span>
+              <span class="qb-btn" onclick="setAv('b',100)">₹100</span>
+            </div>
+            <input class="binp" type="number" id="av-b" value="50" min="10" step="10">
+            <button class="bet-action bplace" id="btn-b-p" onclick="avBet('b')">Place Bet B</button>
+            <button class="bet-action bcash" id="btn-b-c" onclick="avCash('b')" disabled style="opacity:.4">Cash Out B</button>
+          </div>
+        </div>
+        <div style="padding:0 8px 8px">
+          <div style="background:#131328;border:0.5px solid #1e1e38;border-radius:8px;padding:8px">
+            <div style="font-size:9px;color:#555570;font-weight:500;letter-spacing:1px;margin-bottom:5px">Live bets</div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:#b0b0c8;padding:4px 0;border-bottom:0.5px solid #111126">
+              <span>Rahul K***</span><span class="gold">₹200</span><span style="color:#555570">betting...</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 0;border-bottom:0.5px solid #111126">
+              <span style="color:#b0b0c8">Priya M***</span><span class="gold">₹500</span><span class="neon">+₹1,500</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;padding:4px 0">
+              <span style="color:#b0b0c8">Amit S***</span><span class="gold">₹100</span><span class="red-c">lost</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLOR PREDICTION -->
+    <div id="sc-color" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-circle-dot" style="font-size:13px" aria-hidden="true"></i> Color Prediction</span>
+        <div class="bal-chip"><i class="ti ti-currency-rupee" style="font-size:10px;color:#f5c518" aria-hidden="true"></i><span class="bv" id="cp-bal">2,450</span></div>
+      </div>
+      <div class="cpmode-row">
+        <div class="cpm-btn on" onclick="cpSetMode(this,30)">30 Sec</div>
+        <div class="cpm-btn" onclick="cpSetMode(this,60)">1 Min</div>
+        <div class="cpm-btn" onclick="cpSetMode(this,180)">3 Min</div>
+        <div class="cpm-btn" onclick="cpSetMode(this,300)">5 Min</div>
+      </div>
+      <div class="cptimer-box">
+        <div class="cp-round-lbl">Round #<span id="cp-rid">001</span></div>
+        <div class="cp-ring">
+          <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true">
+            <circle cx="30" cy="30" r="25" fill="none" stroke="#1a1a38" stroke-width="4"/>
+            <circle id="cp-arc" cx="30" cy="30" r="25" fill="none" stroke="#39ff14" stroke-width="4"
+              stroke-dasharray="157.1" stroke-dashoffset="0" stroke-linecap="round"/>
+          </svg>
+          <div class="cp-cnt-txt" id="cp-cnt">30</div>
+        </div>
+        <div class="cp-info">Pool: <strong id="cp-pool">₹8,400</strong> · Players: <strong id="cp-pc">64</strong></div>
+      </div>
+      <div class="scroll-area">
+        <div style="font-size:9px;color:#555570;padding:6px 10px 2px;font-weight:500">Pick color:</div>
+        <div class="color-btns">
+          <div class="cbtn cpg" id="cpb-Green" onclick="cpPickColor('Green')">
+            <i class="ti ti-circle-dot" style="font-size:13px" aria-hidden="true"></i> Green
+            <div class="pay">1.8–2×</div>
+          </div>
+          <div class="cbtn cpv" id="cpb-Violet" onclick="cpPickColor('Violet')">
+            <i class="ti ti-circle-dot" style="font-size:13px" aria-hidden="true"></i> Violet
+            <div class="pay">4.5×</div>
+          </div>
+          <div class="cbtn cpr" id="cpb-Red" onclick="cpPickColor('Red')">
+            <i class="ti ti-circle-dot" style="font-size:13px" aria-hidden="true"></i> Red
+            <div class="pay">1.8–2×</div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#555570;padding:2px 10px 2px;font-weight:500">Pick number (8–9×):</div>
+        <div class="numgrid">
+          <div class="nbtn nv" id="nb0" onclick="cpPickNum(0)">0</div>
+          <div class="nbtn ng" id="nb1" onclick="cpPickNum(1)">1</div>
+          <div class="nbtn nr" id="nb2" onclick="cpPickNum(2)">2</div>
+          <div class="nbtn ng" id="nb3" onclick="cpPickNum(3)">3</div>
+          <div class="nbtn nr" id="nb4" onclick="cpPickNum(4)">4</div>
+          <div class="nbtn nv" id="nb5" onclick="cpPickNum(5)">5</div>
+          <div class="nbtn nr" id="nb6" onclick="cpPickNum(6)">6</div>
+          <div class="nbtn ng" id="nb7" onclick="cpPickNum(7)">7</div>
+          <div class="nbtn nr" id="nb8" onclick="cpPickNum(8)">8</div>
+          <div class="nbtn ng" id="nb9" onclick="cpPickNum(9)">9</div>
+        </div>
+        <div class="chips-row">
+          <span class="chip-btn" onclick="cpChip(this,10)">₹10</span>
+          <span class="chip-btn on" onclick="cpChip(this,100)">₹100</span>
+          <span class="chip-btn" onclick="cpChip(this,500)">₹500</span>
+          <span class="chip-btn" onclick="cpChip(this,1000)">₹1K</span>
+        </div>
+        <div style="padding:0 8px 6px">
+          <input class="binp" type="number" id="cp-amt" value="100" min="10" step="10" style="background:#131328;border:0.5px solid #1e1e38;border-radius:8px;padding:7px;width:100%">
+          <button class="place-bet-btn" id="cp-bet-btn" onclick="cpBet()"><i class="ti ti-target" style="font-size:12px" aria-hidden="true"></i> Place Bet</button>
+        </div>
+        <div class="cp-result-box">
+          <div style="font-size:9px;color:#555570;margin-bottom:6px;letter-spacing:1px">Last result</div>
+          <div class="res-ball-inner" id="cp-rball">?</div>
+          <div style="font-size:11px;font-weight:500;color:#555570" id="cp-rtxt">Waiting...</div>
+        </div>
+        <div style="font-size:9px;color:#555570;padding:2px 10px 3px;font-weight:500">History:</div>
+        <div class="cphist-row" id="cp-hist">
+          <div class="cphb chg">1</div><div class="cphb chr">8</div><div class="cphb chv">0</div>
+          <div class="cphb chg">3</div><div class="cphb chr">6</div><div class="cphb chg">9</div>
+          <div class="cphb chv">5</div><div class="cphb chr">2</div>
+        </div>
+        <div style="height:8px"></div>
+      </div>
+    </div>
+
+    <!-- WALLET -->
+    <div id="sc-wallet" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-wallet" style="font-size:13px" aria-hidden="true"></i> Wallet</span>
+        <div style="width:24px"></div>
+      </div>
+      <div class="scroll-area">
+        <div class="wallet-card">
+          <div style="font-size:10px;color:#555570;margin-bottom:3px">Your Khajana Balance</div>
+          <div class="wallet-bal" id="w-bal">₹2,450</div>
+          <div class="wallet-sub">Daily limit: ₹50,000 · Max 3 withdrawals/day</div>
+          <div class="wallet-actions">
+            <button class="wbtn wdep" style="flex:1;padding:9px;border-radius:9px" onclick="showToast('Deposit: Enter amount, pick UPI app, pay ₹')">+ Deposit</button>
+            <button class="wbtn wwit" style="flex:1;padding:9px;border-radius:9px" onclick="showToast('Withdraw: Enter amount + UPI ID')"><i class="ti ti-arrow-up" aria-hidden="true"></i> Withdraw</button>
+          </div>
+          <div style="background:#0d0d22;border:1px dashed #f5c51844;border-radius:8px;padding:8px 10px;margin-top:10px;display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:9px;color:#555570;margin-bottom:2px">Active UPI</div>
+              <div style="font-size:12px;font-weight:500;color:#f5c518">vktvikash@ybl</div>
+            </div>
+            <div style="width:38px;height:38px;background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center">
+              <i class="ti ti-qrcode" style="font-size:22px;color:#222" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:10px 10px 5px">Recent Transactions</div>
+        <div class="tx-list">
+          <div class="tx-row"><div class="tx-ico in"><i class="ti ti-arrow-down" style="font-size:12px;color:#00c851" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Deposit via PhonePe</div><div class="tx-dt">17 May · 11:32 AM</div></div><div><div class="tx-amt neon">+₹1,000</div><span class="sp sp-s">Success</span></div></div>
+          <div class="tx-row"><div class="tx-ico out"><i class="ti ti-arrow-up" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Withdrawal to UPI</div><div class="tx-dt">16 May · 3:15 PM</div></div><div><div class="tx-amt red-c">-₹500</div><span class="sp sp-p">Pending</span></div></div>
+          <div class="tx-row"><div class="tx-ico in"><i class="ti ti-arrow-down" style="font-size:12px;color:#00c851" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Referral Bonus</div><div class="tx-dt">15 May · 8:00 AM</div></div><div><div class="tx-amt neon">+₹100</div><span class="sp sp-s">Success</span></div></div>
+          <div class="tx-row"><div class="tx-ico out"><i class="ti ti-arrow-up" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Withdrawal rejected</div><div class="tx-dt">14 May · 2:00 PM</div></div><div><div class="tx-amt red-c">-₹200</div><span class="sp sp-r">Rejected</span></div></div>
+        </div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="bnav">
+        <div class="bni" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni on" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- REFER -->
+    <div id="sc-refer" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-gift" style="font-size:13px" aria-hidden="true"></i> Refer &amp; Earn</span>
+        <div style="width:24px"></div>
+      </div>
+      <div class="scroll-area">
+        <div class="ref-hero">
+          <h3><i class="ti ti-gift" style="font-size:14px" aria-hidden="true"></i> Invite Friends, Earn ₹100</h3>
+          <p>Share your code. Friend deposits ₹1,000+ and bets → you earn ₹100 + 2% lifetime commission.</p>
+          <div class="ref-code-box">
+            <div>
+              <div style="font-size:9px;color:#555570;margin-bottom:2px">Your lucky code</div>
+              <div class="ref-code">LK8321</div>
+            </div>
+            <button class="copy-btn" onclick="showToast('Code LK8321 copied!')"><i class="ti ti-copy" style="font-size:10px" aria-hidden="true"></i> Copy</button>
+          </div>
+          <button class="play-cta" style="width:100%;text-align:center;padding:7px" onclick="showToast('Sharing on WhatsApp...')"><i class="ti ti-brand-whatsapp" style="font-size:12px" aria-hidden="true"></i> Share on WhatsApp</button>
+        </div>
+        <div class="stats-row">
+          <div class="scard"><div class="sv">23</div><div class="sl">Referrals</div></div>
+          <div class="scard"><div class="sv neon" style="font-size:12px">₹2,300</div><div class="sl">Earned</div></div>
+          <div class="scard"><div class="sv" style="color:#00c4ff;font-size:12px">₹300</div><div class="sl">This month</div></div>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:8px 10px 5px">Your team</div>
+        <div class="tx-list" style="margin:0 10px">
+          <div class="tx-row"><div class="tx-ico in" style="font-size:11px;font-weight:500;color:#00c851">AK</div><div class="tx-info"><div class="tx-nm">Amit K*** · LK-1234</div><div class="tx-dt">Joined 10 May · Bet ₹5,200</div></div><div class="tx-amt neon">+₹104</div></div>
+          <div class="tx-row"><div class="tx-ico in" style="font-size:11px;font-weight:500;color:#00c851">SM</div><div class="tx-info"><div class="tx-nm">Sunita M*** · LK-5678</div><div class="tx-dt">Joined 8 May · Bet ₹2,800</div></div><div class="tx-amt neon">+₹56</div></div>
+          <div class="tx-row"><div class="tx-ico in" style="font-size:11px;font-weight:500;color:#00c851">RJ</div><div class="tx-info"><div class="tx-nm">Ravi J*** · LK-9012</div><div class="tx-dt">Joined 5 May · Bet ₹9,100</div></div><div class="tx-amt neon">+₹182</div></div>
+        </div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="bnav">
+        <div class="bni" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni on" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- PROMO -->
+    <div id="sc-promo" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-star" style="font-size:13px" aria-hidden="true"></i> Promotions</span>
+        <div style="width:24px"></div>
+      </div>
+      <div class="scroll-area">
+        <div style="height:8px"></div>
+        <div class="promo-banner" style="background:#1a0a38;border:0.5px solid #f5c51844">
+          <h3 style="color:#f5c518"><i class="ti ti-gift" style="font-size:12px" aria-hidden="true"></i> Daily Khajana Bonus</h3>
+          <p style="color:#7070a0">Spin daily, win up to ₹500 cashback</p>
+          <span class="promo-badge" style="color:#f5c518">Free</span>
+        </div>
+        <div class="promo-banner" style="background:#0a1a10;border:0.5px solid #00c85144">
+          <h3 style="color:#00c851"><i class="ti ti-diamond" style="font-size:12px" aria-hidden="true"></i> VIP Rewards Room</h3>
+          <p style="color:#7070a0">Exclusive high-roller benefits</p>
+          <span class="promo-badge" style="color:#00c851">VIP</span>
+        </div>
+        <div class="promo-banner" style="background:#1a0a20;border:0.5px solid #9c27b044">
+          <h3 style="color:#9c27b0"><i class="ti ti-trophy" style="font-size:12px" aria-hidden="true"></i> Lucky Leaderboard</h3>
+          <p style="color:#7070a0">Top 10 players win monthly ₹10,000</p>
+          <span class="promo-badge" style="color:#9c27b0">₹10K</span>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:10px 10px 5px">Top players — May 2026</div>
+        <div class="lb-card">
+          <div class="lb-row"><span class="lb-rank" style="color:#f5c518"><i class="ti ti-medal" style="font-size:11px" aria-hidden="true"></i></span><div class="wav" style="width:20px;height:20px;font-size:8px">VK</div><span class="lb-name" style="margin-left:5px">Vikash K***</span><span class="lb-prize">₹8,200</span></div>
+          <div class="lb-row"><span class="lb-rank" style="color:#aaa">2</span><div class="wav" style="width:20px;height:20px;font-size:8px">AK</div><span class="lb-name" style="margin-left:5px">Ajay K***</span><span class="lb-prize">₹6,500</span></div>
+          <div class="lb-row"><span class="lb-rank" style="color:#9c6222">3</span><div class="wav" style="width:20px;height:20px;font-size:8px">RS</div><span class="lb-name" style="margin-left:5px">Rohit S***</span><span class="lb-prize">₹5,100</span></div>
+          <div class="lb-row"><span class="lb-rank" style="color:#555570">4</span><div class="wav" style="width:20px;height:20px;font-size:8px">PM</div><span class="lb-name" style="margin-left:5px">Priya M***</span><span class="lb-prize">₹3,800</span></div>
+          <div class="lb-row"><span class="lb-rank" style="color:#555570">5</span><div class="wav" style="width:20px;height:20px;font-size:8px">SJ</div><span class="lb-name" style="margin-left:5px">Suresh J***</span><span class="lb-prize">₹2,900</span></div>
+        </div>
+        <div style="height:10px"></div>
+      </div>
+      <div class="bnav">
+        <div class="bni" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni on" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="sc-history" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-list" style="font-size:13px" aria-hidden="true"></i> History</span>
+        <div style="width:24px"></div>
+      </div>
+      <div class="hist-tabs">
+        <div class="htab on" onclick="hTab(this,'bets')">Bets</div>
+        <div class="htab" onclick="hTab(this,'deposits')">Deposits</div>
+        <div class="htab" onclick="hTab(this,'withdrawals')">Withdrawals</div>
+        <div class="htab" onclick="hTab(this,'wins')">Wins</div>
+      </div>
+      <div class="scroll-area">
+        <div id="hs-bets" class="hsec on">
+          <div class="tx-list">
+            <div class="tx-row"><div class="tx-ico" style="background:#39ff1422"><i class="ti ti-plane" style="font-size:12px;color:#39ff14" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Aviator · Cashed 3.2×</div><div class="tx-dt">17 May · 11:50 AM</div></div><div><div class="tx-amt neon">+₹440</div><span class="sp sp-s">Won</span></div></div>
+            <div class="tx-row"><div class="tx-ico" style="background:#e8404022"><i class="ti ti-circle-dot" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Color · Red · ₹50</div><div class="tx-dt">17 May · 11:45 AM</div></div><div><div class="tx-amt red-c">-₹50</div><span class="sp sp-r">Lost</span></div></div>
+            <div class="tx-row"><div class="tx-ico" style="background:#9c27b022"><i class="ti ti-circle-dot" style="font-size:12px;color:#9c27b0" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Color · Violet · ₹100</div><div class="tx-dt">17 May · 11:38 AM</div></div><div><div class="tx-amt neon">+₹450</div><span class="sp sp-s">Won</span></div></div>
+            <div class="tx-row"><div class="tx-ico" style="background:#39ff1422"><i class="ti ti-plane" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Aviator · Crashed 1.1×</div><div class="tx-dt">17 May · 11:30 AM</div></div><div><div class="tx-amt red-c">-₹500</div><span class="sp sp-r">Lost</span></div></div>
+          </div>
+        </div>
+        <div id="hs-deposits" class="hsec">
+          <div class="tx-list">
+            <div class="tx-row"><div class="tx-ico in"><i class="ti ti-arrow-down" style="font-size:12px;color:#00c851" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Deposit via PhonePe</div><div class="tx-dt">17 May · 11:32 AM</div></div><div><div class="tx-amt neon">+₹1,000</div><span class="sp sp-s">Approved</span></div></div>
+            <div class="tx-row"><div class="tx-ico in"><i class="ti ti-arrow-down" style="font-size:12px;color:#00c851" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Deposit via Google Pay</div><div class="tx-dt">14 May · 9:10 AM</div></div><div><div class="tx-amt neon">+₹500</div><span class="sp sp-p">Pending</span></div></div>
+          </div>
+        </div>
+        <div id="hs-withdrawals" class="hsec">
+          <div class="tx-list">
+            <div class="tx-row"><div class="tx-ico out"><i class="ti ti-arrow-up" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Withdrawal → user@upi</div><div class="tx-dt">16 May · 3:15 PM</div></div><div><div class="tx-amt red-c">-₹500</div><span class="sp sp-p">Pending</span></div></div>
+            <div class="tx-row"><div class="tx-ico out"><i class="ti ti-arrow-up" style="font-size:12px;color:#e84040" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Withdrawal rejected</div><div class="tx-dt">14 May · 2:00 PM</div></div><div><div class="tx-amt red-c">-₹200</div><span class="sp sp-r">Rejected</span></div></div>
+          </div>
+        </div>
+        <div id="hs-wins" class="hsec">
+          <div class="tx-list">
+            <div class="tx-row"><div class="tx-ico" style="background:#f5c51822"><i class="ti ti-trophy" style="font-size:12px;color:#f5c518" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Won: Aviator 3.2× · ₹440</div><div class="tx-dt">17 May · 11:50 AM</div></div><div class="tx-amt neon">+₹440</div></div>
+            <div class="tx-row"><div class="tx-ico" style="background:#f5c51822"><i class="ti ti-trophy" style="font-size:12px;color:#f5c518" aria-hidden="true"></i></div><div class="tx-info"><div class="tx-nm">Won: Violet bet · ₹450</div><div class="tx-dt">17 May · 11:38 AM</div></div><div class="tx-amt neon">+₹450</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="bni" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni on" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="sc-profile" class="screen s-bg">
+      <div class="top-bar">
+        <button style="background:none;border:none;cursor:pointer" onclick="showNav('home')" aria-label="Back"><i class="ti ti-arrow-left" style="font-size:16px;color:#7070a0"></i></button>
+        <span style="font-size:12px;font-weight:500;color:#f5c518"><i class="ti ti-user" style="font-size:13px" aria-hidden="true"></i> Profile</span>
+        <div style="width:24px"></div>
+      </div>
+      <div class="scroll-area">
+        <div class="prof-hero">
+          <div class="prof-av"><i class="ti ti-coins" aria-hidden="true"></i></div>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:#e0e0f0">Vikash Kumar</div>
+            <div style="font-size:10px;color:#555570;margin-top:2px">ID: LK-2024-08321</div>
+            <div class="vip-badge"><i class="ti ti-star" style="font-size:9px" aria-hidden="true"></i> VIP Gold</div>
+          </div>
+          <div style="margin-left:auto;text-align:right">
+            <div style="font-size:9px;color:#555570">Balance</div>
+            <div style="font-size:14px;font-weight:500;color:#f5c518">₹2,450</div>
+          </div>
+        </div>
+        <div class="menu-group">
+          <div class="menu-item"><div class="mico" style="background:#f5c51822"><i class="ti ti-lock" style="font-size:13px;color:#f5c518" aria-hidden="true"></i></div><span class="mtxt">Change password</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+          <div class="menu-item"><div class="mico" style="background:#00c85122"><i class="ti ti-credit-card" style="font-size:13px;color:#00c851" aria-hidden="true"></i></div><span class="mtxt">Linked UPI ID</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+          <div class="menu-item"><div class="mico" style="background:#2979ff22"><i class="ti ti-id-badge" style="font-size:13px;color:#2979ff" aria-hidden="true"></i></div><span class="mtxt">KYC verification</span><div style="font-size:9px;color:#ffb300;margin-left:auto">Pending</div></div>
+          <div class="menu-item"><div class="mico" style="background:#9c27b022"><i class="ti ti-bell" style="font-size:13px;color:#9c27b0" aria-hidden="true"></i></div><span class="mtxt">Notifications</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+        </div>
+        <div class="menu-group">
+          <div class="menu-item" onclick="showNav('refer')"><div class="mico" style="background:#f5c51822"><i class="ti ti-gift" style="font-size:13px;color:#f5c518" aria-hidden="true"></i></div><span class="mtxt">Refer &amp; earn</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+          <div class="menu-item"><div class="mico" style="background:#2979ff22"><i class="ti ti-headset" style="font-size:13px;color:#2979ff" aria-hidden="true"></i></div><span class="mtxt">Customer support</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+          <div class="menu-item"><div class="mico" style="background:#e8404022"><i class="ti ti-alert-triangle" style="font-size:13px;color:#e84040" aria-hidden="true"></i></div><span class="mtxt">Responsible gaming</span><span class="marr"><i class="ti ti-chevron-right" style="font-size:12px" aria-hidden="true"></i></span></div>
+        </div>
+        <div style="margin:0 10px 10px">
+          <button style="width:100%;padding:10px;background:#e8404011;border:0.5px solid #e8404044;color:#e84040;border-radius:9px;font-size:11px;font-weight:500;cursor:pointer" onclick="showToast('Logged out successfully')"><i class="ti ti-logout" style="font-size:12px" aria-hidden="true"></i> Logout from Lucky Khajana</button>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="bni" onclick="showNav('home')"><i class="ti ti-home"></i><span>Home</span></div>
+        <div class="bni" onclick="showNav('wallet')"><i class="ti ti-wallet"></i><span>Wallet</span></div>
+        <div class="bni" onclick="showNav('refer')"><i class="ti ti-gift"></i><span>Refer</span></div>
+        <div class="bni" onclick="showNav('history')"><i class="ti ti-list"></i><span>History</span></div>
+        <div class="bni" onclick="showNav('promo')"><i class="ti ti-star"></i><span>Promo</span></div>
+        <div class="bni on" onclick="showNav('profile')"><i class="ti ti-user"></i><span>Profile</span></div>
+      </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="sc-admin" class="screen" style="background:#070710;display:none;flex-direction:column">
+      <div class="admin-hdr">
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="logo-box"><i class="ti ti-coins" aria-hidden="true"></i></div>
+          <div>
+            <div style="font-size:11px;font-weight:500;color:#f5c518">Lucky Khajana</div>
+            <div style="font-size:9px;color:#555570">Admin Dashboard</div>
+          </div>
+        </div>
+        <span class="admin-badge"><i class="ti ti-shield" style="font-size:10px" aria-hidden="true"></i> Admin</span>
+      </div>
+      <div style="flex:1;overflow-y:auto;scrollbar-width:none">
+        <div class="metric-grid">
+          <div class="mcard"><div class="mv">12,841</div><div class="ml">Total users</div><div class="mt"><i class="ti ti-arrow-up" style="font-size:9px" aria-hidden="true"></i> +214 today</div></div>
+          <div class="mcard"><div class="mv green">₹3.8L</div><div class="ml">Revenue today</div><div class="mt"><i class="ti ti-arrow-up" style="font-size:9px" aria-hidden="true"></i> +22%</div></div>
+          <div class="mcard"><div class="mv">38</div><div class="ml">Live rounds</div><div class="mt" style="color:#f5c518">Active now</div></div>
+          <div class="mcard"><div class="mv red">21</div><div class="ml">Pending withdrawals</div><div class="mt" style="color:#e84040">₹84,500</div></div>
+        </div>
+        <div class="ctrl-panel">
+          <div class="ctrl-title"><i class="ti ti-plane" style="font-size:11px" aria-hidden="true"></i> Aviator RTP control</div>
+          <div class="ctrl-row">
+            <span>RTP</span>
+            <input type="range" min="70" max="95" value="85" step="1" oninput="document.getElementById('rtp-v').textContent=this.value+'%'">
+            <strong id="rtp-v">85%</strong>
+          </div>
+          <div style="background:#0d0d1e;border-radius:6px;padding:7px 8px;margin-top:6px;font-size:9px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="color:#555570">Pool ₹10,000 · RTP 85%</span><span class="neon">Max pay ≈ ₹8,500</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#555570">Platform retains</span><span class="gold">₹1,500 (15%)</span></div>
+          </div>
+          <div style="display:flex;gap:5px;margin-top:7px">
+            <button style="flex:1;padding:6px;background:#e8404022;border:0.5px solid #e8404044;color:#e84040;border-radius:6px;font-size:9px;cursor:pointer" onclick="showToast('Game stopped!')"><i class="ti ti-player-stop" style="font-size:10px" aria-hidden="true"></i> Stop</button>
+            <button style="flex:1;padding:6px;background:#00c85122;border:0.5px solid #00c85144;color:#00c851;border-radius:6px;font-size:9px;cursor:pointer" onclick="showToast('Game resumed!')"><i class="ti ti-player-play" style="font-size:10px" aria-hidden="true"></i> Resume</button>
+          </div>
+        </div>
+        <div class="ctrl-panel">
+          <div class="ctrl-title"><i class="ti ti-circle-dot" style="font-size:11px" aria-hidden="true"></i> Color game commission</div>
+          <div class="ctrl-row">
+            <span>Commission %</span>
+            <input type="range" min="2" max="10" value="4" step="1" oninput="document.getElementById('comm-v').textContent=this.value+'%'">
+            <strong id="comm-v">4%</strong>
+          </div>
+          <div class="ctrl-panel" style="margin:6px 0 0;padding:8px;border-color:#1e1e38">
+            <div class="ctrl-title" style="margin-bottom:6px"><i class="ti ti-credit-card" style="font-size:10px" aria-hidden="true"></i> UPI management</div>
+            <div style="background:#0d0d1e;border:0.5px dashed #f5c51844;border-radius:6px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+              <div><div style="font-size:8px;color:#555570;margin-bottom:1px">Active UPI</div><div style="font-size:10px;font-weight:500;color:#f5c518">vktvikash@ybl</div></div>
+              <div style="font-size:8px;color:#39ff14;font-weight:500">● Live</div>
+            </div>
+            <div style="display:flex;gap:4px">
+              <button style="flex:1;padding:5px;background:#f5c51822;border:0.5px solid #f5c51844;color:#f5c518;border-radius:5px;font-size:8px;cursor:pointer" onclick="showToast('Change UPI ID (OTP required)')"><i class="ti ti-edit" style="font-size:9px" aria-hidden="true"></i> Change UPI</button>
+              <button style="flex:1;padding:5px;background:#1a1a2e;border:0.5px solid #1e1e38;color:#b0b0c8;border-radius:5px;font-size:8px;cursor:pointer" onclick="showToast('Upload new QR code')"><i class="ti ti-qrcode" style="font-size:9px" aria-hidden="true"></i> QR Code</button>
+            </div>
+          </div>
+        </div>
+        <div class="chart-bar">
+          <div style="font-size:9px;color:#555570;margin-bottom:8px;font-weight:500">Weekly revenue (₹L)</div>
+          <div class="bars">
+            <div class="bar-col"><div class="bar-fill" style="height:60%;background:#f5c518;opacity:.8"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">2.1</span></div><div class="bar-day">Mon</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:78%;background:#f5c518;opacity:.8"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">2.8</span></div><div class="bar-day">Tue</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:52%;background:#f5c518;opacity:.8"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">1.9</span></div><div class="bar-day">Wed</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:88%;background:#39ff14;opacity:.8"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">3.2</span></div><div class="bar-day">Thu</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:94%;background:#39ff14;opacity:.8"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">3.5</span></div><div class="bar-day">Fri</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:100%;background:#f5c518"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">3.8</span></div><div class="bar-day">Sat</div></div>
+            <div class="bar-col"><div class="bar-fill" style="height:70%;background:#555570;opacity:.6"><span style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:8px;color:#555570">2.4</span></div><div class="bar-day">Sun</div></div>
+          </div>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px 5px">Pending withdrawals</div>
+        <div class="admin-table">
+          <div class="atr"><div style="flex:1;color:#b0b0c8">Vikash K. · ₹500</div><div style="color:#555570;font-size:9px">user@paytm</div><div style="display:flex;gap:4px"><button class="abtn ab-ok" onclick="showToast('₹500 approved!')">OK</button><button class="abtn ab-no" onclick="showToast('Rejected')">No</button></div></div>
+          <div class="atr"><div style="flex:1;color:#b0b0c8">Rahul S. · ₹1,000</div><div style="color:#555570;font-size:9px">rahul@gpay</div><div style="display:flex;gap:4px"><button class="abtn ab-ok" onclick="showToast('₹1,000 approved!')">OK</button><button class="abtn ab-no" onclick="showToast('Rejected')">No</button></div></div>
+          <div class="atr"><div style="flex:1;color:#b0b0c8">Priya D. · ₹2,000</div><div style="color:#555570;font-size:9px">priya@phonepe</div><div style="display:flex;gap:4px"><button class="abtn ab-ok" onclick="showToast('₹2,000 approved!')">OK</button><button class="abtn ab-no" onclick="showToast('Rejected')">No</button></div></div>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#f5c518;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px 5px">User management</div>
+        <div class="admin-table">
+          <div class="atr"><div style="flex:1;color:#b0b0c8">Rahul K. · LK-1234</div><div style="color:#39ff14;font-size:9px">Active</div><div style="display:flex;gap:4px"><button class="abtn ab-ok" onclick="showToast('Bonus sent!')"><i class="ti ti-gift" style="font-size:9px" aria-hidden="true"></i></button><button class="abtn ab-no" onclick="showToast('User banned')"><i class="ti ti-ban" style="font-size:9px" aria-hidden="true"></i></button></div></div>
+          <div class="atr"><div style="flex:1;color:#b0b0c8">Sanjay P. · LK-5678</div><div style="color:#e84040;font-size:9px">Banned</div><button class="abtn ab-ok" onclick="showToast('User unbanned')">Unban</button></div>
+        </div>
+        <div style="height:12px"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:14px"></div>
+
+  <div id="toast-msg" style="background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:20px;padding:7px 16px;font-size:12px;color:var(--color-text-primary);opacity:0;transition:opacity .3s;text-align:center;max-width:320px;pointer-events:none">Toast</div>
+
+  <div class="nav-pills">
+    <button class="np on" onclick="switchScreen('splash',this)">Splash</button>
+    <button class="np" onclick="switchScreen('home',this)">Home</button>
+    <button class="np" onclick="switchScreen('aviator',this)">Aviator</button>
+    <button class="np" onclick="switchScreen('color',this)">Color Game</button>
+    <button class="np" onclick="switchScreen('wallet',this)">Wallet</button>
+    <button class="np" onclick="switchScreen('refer',this)">Refer</button>
+    <button class="np" onclick="switchScreen('promo',this)">Promo</button>
+    <button class="np" onclick="switchScreen('history',this)">History</button>
+    <button class="np" onclick="switchScreen('profile',this)">Profile</button>
+    <button class="np" onclick="switchScreen('admin',this)">Admin Panel</button>
+  </div>
+</div>
+
+<script>
+var BAL = 2450;
+var COLOR_OF = {0:'Violet',1:'Green',2:'Red',3:'Green',4:'Red',5:'Violet',6:'Red',7:'Green',8:'Red',9:'Green'};
+var CLRBG = {Green:'#00c851',Red:'#e84040',Violet:'#9c27b0'};
+var CLRTXT = {Green:'#173404',Red:'#fcebeb',Violet:'#eeedfe'};
+
+var _tt = null;
+function showToast(msg) {
+  var el = document.getElementById('toast-msg');
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(_tt);
+  _tt = setTimeout(function(){ el.style.opacity='0'; }, 2800);
+}
+
+function setBalUI() {
+  var v = Math.round(BAL).toLocaleString('en-IN');
+  ['h-bal','av-bal','cp-bal'].forEach(function(id){
+    var e = document.getElementById(id); if(e) e.textContent = v;
+  });
+  var wb = document.getElementById('w-bal');
+  if(wb) wb.textContent = '₹' + v;
+}
+
+function switchScreen(name, btn) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); s.style.display='none'; });
+  document.querySelectorAll('.np').forEach(function(b){ b.classList.remove('on'); });
+  var sc = document.getElementById('sc-'+name);
+  if(sc){ sc.style.display='flex'; sc.classList.add('on'); }
+  if(btn) btn.classList.add('on');
+  if(name==='aviator') { setTimeout(avInit, 80); }
+  if(name==='color') { cpInit(); }
+}
+
+function showNav(name) {
+  var map = {home:0, aviator:2, color:3, wallet:4, refer:5, promo:6, history:7, profile:8, admin:9};
+  var pills = document.querySelectorAll('.np');
+  var idx = map[name];
+  if(idx !== undefined && pills[idx]) switchScreen(name, pills[idx]);
+}
+
+var AV = { on:false, waiting:false, mult:1.00, crashAt:1.00, bets:{a:null,b:null}, cashed:{a:false,b:false}, iv:null, cd:null, tick:0 };
+
+function avInit() {
+  if(AV.on||AV.waiting) return;
+  avCountdown();
+}
+function avCountdown() {
+  AV.waiting=true; AV.on=false; AV.mult=1.00;
+  AV.cashed={a:false,b:false};
+  clearInterval(AV.iv); clearInterval(AV.cd);
+  var pl=document.getElementById('av-plane');
+  if(pl){pl.style.left='15%';pl.style.bottom='16px';}
+  avStatus('w','Next round in 5s'); avMult(1.00,false);
+  var s=5;
+  AV.cd=setInterval(function(){
+    s--;
+    if(s<=0){clearInterval(AV.cd);AV.waiting=false;avRound();}
+    else avStatus('w','Next round in '+s+'s');
+  },1000);
+}
+function avRound() {
+  AV.on=true; AV.tick=0;
+  var r=Math.random();
+  if(r<0.40) AV.crashAt=1+Math.random()*1.2;
+  else if(r<0.68) AV.crashAt=2.2+Math.random()*2.8;
+  else if(r<0.84) AV.crashAt=5+Math.random()*5;
+  else if(r<0.94) AV.crashAt=10+Math.random()*10;
+  else AV.crashAt=20+Math.random()*80;
+  AV.crashAt=Math.round(AV.crashAt*100)/100;
+  avStatus('f','Flying');
+  ['a','b'].forEach(function(s){if(AV.bets[s])avBtnState(s,'c',false);});
+  clearInterval(AV.iv);
+  AV.iv=setInterval(function(){
+    AV.tick++;
+    var spd=0.013+AV.tick*0.00075;
+    AV.mult=Math.round((AV.mult+spd)*100)/100;
+    avMult(AV.mult,AV.mult>3);
+    var prog=Math.min((AV.mult-1)/Math.max(AV.crashAt-1,.01),1);
+    var pl=document.getElementById('av-plane');
+    if(pl){pl.style.left=(15+prog*60)+'%';pl.style.bottom=(16+prog*100)+'px';}
+    ['a','b'].forEach(function(s){
+      if(AV.bets[s]&&!AV.cashed[s]){
+        var ae=document.getElementById('av-'+s);
+        var at=ae?parseFloat(ae.dataset.auto||2):2;
+        if(AV.mult>=at) avCash(s);
+      }
+    });
+    if(AV.mult>=AV.crashAt){clearInterval(AV.iv);AV.on=false;avCrash();}
+  },100);
+}
+function avCrash() {
+  avStatus('c','Crashed @ '+AV.crashAt.toFixed(2)+'×');
+  avMult(AV.crashAt,true);
+  ['a','b'].forEach(function(s){
+    if(AV.bets[s]&&!AV.cashed[s]){
+      showToast('Bet '+s.toUpperCase()+' lost — crashed @ '+AV.crashAt.toFixed(2)+'×');
+      AV.bets[s]=null;
+      avBtnState(s,'p',false,'Place Bet '+s.toUpperCase());
+      avBtnState(s,'c',true,'Cash Out '+s.toUpperCase());
+    }
+  });
+  var hist=document.getElementById('av-hist');
+  if(hist){
+    var c=document.createElement('span');
+    var m=AV.crashAt;
+    c.className='hmc '+(m<2?'lo':m<6?'mi':'hi');
+    c.textContent=m.toFixed(2)+'×';
+    hist.insertBefore(c,hist.firstChild);
+  }
+  setTimeout(function(){avCountdown();},2000);
+}
+function avBet(s) {
+  if(AV.on){showToast('Round in progress — wait for next round');return;}
+  var el=document.getElementById('av-'+s);
+  if(!el) return;
+  var amt=parseInt(el.value,10);
+  if(isNaN(amt)||amt<10){showToast('Enter amount (min ₹10)');return;}
+  if(amt%10!==0){showToast('Amount must be multiple of ₹10');return;}
+  if(amt>BAL){showToast('Insufficient balance');return;}
+  AV.bets[s]=amt; BAL-=amt; setBalUI();
+  avBtnState(s,'p',true,'Bet placed ₹'+amt);
+  showToast('Bet '+s.toUpperCase()+' ₹'+amt+' placed — cannot cancel!');
+}
+function avCash(s) {
+  if(!AV.on||!AV.bets[s]||AV.cashed[s]) return;
+  AV.cashed[s]=true;
+  var won=Math.round(AV.bets[s]*AV.mult);
+  BAL+=won; setBalUI();
+  avBtnState(s,'c',true,'Cashed '+AV.mult.toFixed(2)+'×');
+  showToast('Cashed out '+AV.mult.toFixed(2)+'×! Won ₹'+won.toLocaleString('en-IN'));
+  AV.bets[s]=null;
+  setTimeout(function(){avBtnState(s,'p',false,'Place Bet '+s.toUpperCase());},3000);
+}
+function setAv(s,amt){var e=document.getElementById('av-'+s);if(e)e.value=amt;}
+function avBtnState(s,w,dis,txt){
+  var id=w==='p'?'btn-'+s+'-p':'btn-'+s+'-c';
+  var el=document.getElementById(id); if(!el) return;
+  el.disabled=dis; el.style.opacity=dis?'0.4':'1';
+  if(txt) el.textContent=txt;
+}
+function avStatus(t,txt){
+  var el=document.getElementById('av-status'); if(!el) return;
+  el.className='avia-status '+(t==='w'?'ast-w':t==='f'?'ast-f':'ast-c');
+  el.textContent=txt;
+}
+function avMult(m,dng){
+  var el=document.getElementById('av-mult'); if(!el) return;
+  el.textContent=m.toFixed(2)+'×';
+  el.style.color=dng?'#e84040':'#39ff14';
+}
+
+var CP = { mode:30, secs:30, rid:1, iv:null, selColor:null, selNum:null, betAmt:100, hasBet:false };
+
+function cpInit() {
+  clearInterval(CP.iv);
+  CP.rid++; CP.selColor=null; CP.selNum=null; CP.hasBet=false;
+  document.querySelectorAll('.cbtn').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('sel');});
+  var ball=document.getElementById('cp-rball');
+  if(ball){ball.classList.remove('show');ball.textContent='?';ball.style.background='transparent';}
+  var txt=document.getElementById('cp-rtxt'); if(txt){txt.textContent='Waiting...';txt.style.color='#555570';}
+  var btn=document.getElementById('cp-bet-btn'); if(btn){btn.disabled=false;btn.textContent='Place Bet';}
+  var rid=document.getElementById('cp-rid'); if(rid) rid.textContent=String(CP.rid).padStart(3,'0');
+  cpStartTimer();
+}
+function cpSetMode(el,secs){
+  document.querySelectorAll('.cpm-btn').forEach(function(m){m.classList.remove('on');});
+  el.classList.add('on'); CP.mode=secs; cpInit();
+}
+function cpStartTimer(){
+  clearInterval(CP.iv); CP.secs=CP.mode;
+  var arc=document.getElementById('cp-arc');
+  var cnt=document.getElementById('cp-cnt');
+  var MAX=157.1;
+  if(cnt) cnt.textContent=CP.secs;
+  if(arc){arc.setAttribute('stroke-dashoffset','0');arc.setAttribute('stroke','#39ff14');}
+  CP.iv=setInterval(function(){
+    CP.secs--;
+    if(cnt) cnt.textContent=CP.secs;
+    var pct=CP.secs/CP.mode;
+    if(arc){arc.setAttribute('stroke-dashoffset',String(MAX*(1-pct)));arc.setAttribute('stroke',CP.secs>CP.mode*.3?'#39ff14':'#e84040');}
+    if(CP.secs<=0){clearInterval(CP.iv);cpShowResult(true);}
+  },1000);
+}
+function cpPickColor(c){
+  CP.selColor=c; CP.selNum=null;
+  document.querySelectorAll('.cbtn').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('sel');});
+  var cb=document.getElementById('cpb-'+c); if(cb) cb.classList.add('sel');
+  showToast('Selected: '+c);
+}
+function cpPickNum(n){
+  CP.selNum=n; CP.selColor=null;
+  document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('sel');});
+  document.querySelectorAll('.cbtn').forEach(function(b){b.classList.remove('sel');});
+  var nb=document.getElementById('nb'+n); if(nb) nb.classList.add('sel');
+  showToast('Selected: Number '+n);
+}
+function cpChip(el,amt){
+  document.querySelectorAll('.chip-btn').forEach(function(c){c.classList.remove('on');});
+  el.classList.add('on'); CP.betAmt=amt;
+  var inp=document.getElementById('cp-amt'); if(inp) inp.value=amt;
+}
+function cpBet(){
+  if(CP.secs<=3){showToast('Too late! Wait for next round');return;}
+  var amtEl=document.getElementById('cp-amt');
+  var amt=amtEl?parseInt(amtEl.value,10):CP.betAmt;
+  if(isNaN(amt)||amt<10){showToast('Enter valid amount (min ₹10)');return;}
+  if(amt%10!==0){showToast('Amount must be multiple of ₹10');return;}
+  if(amt>BAL){showToast('Insufficient balance');return;}
+  if(CP.selColor===null&&CP.selNum===null){showToast('Pick a color or number first!');return;}
+  CP.betAmt=amt; CP.hasBet=true;
+  BAL-=amt; setBalUI();
+  var btn=document.getElementById('cp-bet-btn');
+  if(btn){btn.disabled=true;btn.textContent='Bet locked ₹'+amt;}
+  var sel=CP.selColor?CP.selColor:'Number '+CP.selNum;
+  showToast('Bet ₹'+amt+' on '+sel+' locked!');
+  setTimeout(function(){cpShowResult(false);},1500);
+}
+function cpShowResult(fromTimer){
+  var result=Math.floor(Math.random()*10);
+  var rColor=COLOR_OF[result];
+  var isBig=result>=5;
+  var ball=document.getElementById('cp-rball');
+  var txt=document.getElementById('cp-rtxt');
+  if(ball){ball.style.background=CLRBG[rColor];ball.style.color=CLRTXT[rColor];ball.textContent=result;ball.classList.add('show');}
+  var desc=rColor+' · '+result+' · '+(isBig?'Big':'Small');
+  if(txt){txt.textContent=desc;txt.style.color=CLRBG[rColor];}
+  var hist=document.getElementById('cp-hist');
+  if(hist){
+    var hb=document.createElement('div');
+    hb.className='cphb '+(rColor==='Green'?'chg':rColor==='Red'?'chr':'chv');
+    hb.textContent=result;
+    hist.insertBefore(hb,hist.firstChild);
+    while(hist.children.length>12) hist.removeChild(hist.lastChild);
+  }
+  if(CP.hasBet&&(CP.selColor!==null||CP.selNum!==null)){
+    var won=false; var payout=0;
+    if(CP.selColor===rColor){won=true;payout=Math.round(CP.betAmt*(rColor==='Violet'?4.5:1.8));}
+    else if(CP.selNum!==null&&CP.selNum===result){won=true;payout=Math.round(CP.betAmt*8);}
+    if(won){BAL+=payout;setBalUI();showToast('Won ₹'+payout.toLocaleString('en-IN')+'! '+desc);}
+    else{showToast('Result: '+desc+' — better luck next time!');}
+  } else {
+    showToast('Result: '+desc);
+  }
+  setTimeout(cpInit, fromTimer?2500:3000);
+}
+
+function hTab(el,sec){
+  document.querySelectorAll('.htab').forEach(function(t){t.classList.remove('on');});
+  el.classList.add('on');
+  document.querySelectorAll('.hsec').forEach(function(s){s.classList.remove('on');});
+  var s=document.getElementById('hs-'+sec); if(s) s.classList.add('on');
+}
+</script>
