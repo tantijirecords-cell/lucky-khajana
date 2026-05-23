@@ -1,147 +1,173 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Panel</title>
+<title>Admin Panel</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: linear-gradient(45deg, #ff512f, #dd2476);
-      color: white;
-      text-align: center;
-    }
+<style>
+body{
+  font-family: Arial;
+  background: linear-gradient(45deg,#1e3c72,#2a5298);
+  color:white;
+  text-align:center;
+}
 
-    .box {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-      border-radius: 10px;
-      width: 320px;
-      margin: auto;
-      margin-top: 80px;
-    }
+.box{
+  background: rgba(0,0,0,0.6);
+  padding:20px;
+  margin:20px auto;
+  width:300px;
+  border-radius:10px;
+}
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
-      border: none;
-    }
+input,button{
+  padding:10px;
+  margin:5px;
+  width:90%;
+  border:none;
+  border-radius:5px;
+}
 
-    button {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      background: yellow;
-      font-weight: bold;
-    }
+button{
+  background:#00c9ff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    #msg {
-      margin-top: 10px;
-      font-weight: bold;
-      color: lime;
-    }
+#panel{display:none;}
 
-    #panel {
-      display: none;
-    }
-  </style>
+#msg{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:green;
+  padding:10px 20px;
+  border-radius:5px;
+  display:none;
+}
+
+/* COLOR THEMES */
+.theme1{background: linear-gradient(45deg,#1e3c72,#2a5298);}
+.theme2{background: linear-gradient(45deg,#ff512f,#dd2476);}
+.theme3{background: linear-gradient(45deg,#11998e,#38ef7d);}
+.theme4{background: linear-gradient(45deg,#fc466b,#3f5efb);}
+</style>
+
 </head>
+<body class="theme1">
 
-<body>
+<div id="msg"></div>
 
-<!-- 🔐 LOGIN BOX -->
+<!-- LOGIN -->
 <div class="box" id="loginBox">
-  <h2>🔐 Admin Login</h2>
-
-  <input id="adminUser" placeholder="Username">
-  <input id="adminPass" type="password" placeholder="Password">
-
-  <button onclick="login()">Login</button>
-
-  <p id="loginMsg"></p>
+<h2>Admin Login</h2>
+<input id="id" placeholder="Admin ID">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
 </div>
 
-<!-- ⚙️ ADMIN PANEL -->
-<div class="box" id="panel">
-  <h2>⚙️ Admin Panel</h2>
+<!-- PANEL -->
+<div id="panel">
 
-  <p>User ID:</p>
-  <input id="uid" placeholder="Enter User ID">
+<div class="box">
+<h2>Admin Panel</h2>
 
-  <p>Amount:</p>
-  <input id="amount" placeholder="Enter Amount">
+<input id="userid" placeholder="User ID">
+<input id="amount" type="number" placeholder="Amount">
 
-  <br>
+<button onclick="add()">Add Balance</button>
+<button onclick="cut()">Cut Balance</button>
+</div>
 
-  <button onclick="add()">Add Balance</button>
-  <button onclick="cut()">Cut Balance</button>
+<div class="box">
+<h3>🎨 Change Theme</h3>
+<button onclick="setTheme('theme1')">Blue</button>
+<button onclick="setTheme('theme2')">Red</button>
+<button onclick="setTheme('theme3')">Green</button>
+<button onclick="setTheme('theme4')">Mix</button>
+</div>
 
-  <p id="msg"></p>
+<button onclick="logout()">Logout</button>
+
 </div>
 
 <script>
 
-// 🔐 ADMIN LOGIN (simple hardcoded)
-let ADMIN_USER = "admin";
-let ADMIN_PASS = "1234";
+// 🔐 LOGIN DETAILS
+let ADMIN_USER = "8252312053";
+let ADMIN_PASS = "Vikash209@";
 
-function login() {
-  let u = document.getElementById("adminUser").value;
-  let p = document.getElementById("adminPass").value;
+function login(){
+  let id=document.getElementById("id").value;
+  let pass=document.getElementById("pass").value;
 
-  if(u === ADMIN_USER && p === ADMIN_PASS) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("panel").style.display = "block";
-  } else {
-    document.getElementById("loginMsg").innerText = "❌ Wrong Login";
+  if(id===ADMIN_USER && pass===ADMIN_PASS){
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("panel").style.display="block";
+  }else{
+    showMsg("❌ Wrong Login","red");
   }
 }
 
-// 💾 USERS DATA
-let users = JSON.parse(localStorage.getItem("users")) || {};
+// 💰 BALANCE SYSTEM
+function add(){
+  let uid=document.getElementById("userid").value;
+  let amt=parseInt(document.getElementById("amount").value);
 
-function save() {
-  localStorage.setItem("users", JSON.stringify(users));
+  let users=JSON.parse(localStorage.getItem("users"))||{};
+
+  if(!users[uid]){
+    users[uid]={balance:0};
+  }
+
+  users[uid].balance+=amt;
+
+  localStorage.setItem("users",JSON.stringify(users));
+
+  showMsg("✅ Balance Added","green");
 }
 
-// ➕ ADD
-function add() {
-  let uid = document.getElementById("uid").value;
-  let amt = Number(document.getElementById("amount").value);
+function cut(){
+  let uid=document.getElementById("userid").value;
+  let amt=parseInt(document.getElementById("amount").value);
 
-  if(users[uid]) {
-    users[uid].balance += amt;
-    save();
-    showMsg("✅ Balance Added");
-  } else {
-    showMsg("❌ User Not Found");
+  let users=JSON.parse(localStorage.getItem("users"))||{};
+
+  if(users[uid]){
+    users[uid].balance-=amt;
+    localStorage.setItem("users",JSON.stringify(users));
+    showMsg("⚠ Balance Cut","orange");
+  }else{
+    showMsg("User Not Found","red");
   }
 }
 
-// ➖ CUT
-function cut() {
-  let uid = document.getElementById("uid").value;
-  let amt = Number(document.getElementById("amount").value);
-
-  if(users[uid]) {
-    users[uid].balance -= amt;
-    save();
-    showMsg("⚠️ Balance Cut");
-  } else {
-    showMsg("❌ User Not Found");
-  }
+// 🎨 THEME CHANGE
+function setTheme(t){
+  document.body.className=t;
+  localStorage.setItem("theme",t);
 }
 
-// ⏱️ MESSAGE 5 SEC
-function showMsg(text) {
-  let m = document.getElementById("msg");
-  m.innerText = text;
+// 🔁 LOAD THEME
+window.onload=function(){
+  let t=localStorage.getItem("theme");
+  if(t){document.body.className=t;}
+}
 
-  setTimeout(() => {
-    m.innerText = "";
-  }, 5000);
+// 📢 MESSAGE (5 sec)
+function showMsg(text,color){
+  let m=document.getElementById("msg");
+  m.innerText=text;
+  m.style.background=color;
+  m.style.display="block";
+
+  setTimeout(()=>{m.style.display="none";},5000);
+}
+
+// 🚪 LOGOUT
+function logout(){
+  location.reload();
 }
 
 </script>
