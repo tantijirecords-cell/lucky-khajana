@@ -1,173 +1,271 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin Panel</title>
+<meta charset="UTF-8">
+<title>Advanced Admin Panel</title>
 
 <style>
 body{
-  font-family: Arial;
-  background: linear-gradient(45deg,#1e3c72,#2a5298);
+  margin:0;
+  font-family:Arial;
   color:white;
-  text-align:center;
+  transition:0.5s;
 }
 
+/* Splash Screen */
+#splash{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  font-weight:bold;
+  z-index:999;
+}
+
+/* Container */
 .box{
-  background: rgba(0,0,0,0.6);
-  padding:20px;
+  max-width:400px;
   margin:20px auto;
-  width:300px;
-  border-radius:10px;
+  padding:20px;
+  background:rgba(0,0,0,0.6);
+  border-radius:15px;
 }
 
+/* Inputs */
 input,button{
+  width:100%;
   padding:10px;
-  margin:5px;
-  width:90%;
+  margin:6px 0;
   border:none;
-  border-radius:5px;
+  border-radius:8px;
 }
 
 button{
-  background:#00c9ff;
-  color:black;
+  background:#00c6ff;
+  color:white;
   font-weight:bold;
-  cursor:pointer;
 }
 
-#panel{display:none;}
+/* Dashboard Grid */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
 
+.card{
+  background:rgba(255,255,255,0.1);
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
+
+/* Message */
 #msg{
   position:fixed;
   top:20px;
-  left:50%;
-  transform:translateX(-50%);
+  right:20px;
   background:green;
-  padding:10px 20px;
-  border-radius:5px;
+  padding:10px;
   display:none;
+  border-radius:8px;
 }
-
-/* COLOR THEMES */
-.theme1{background: linear-gradient(45deg,#1e3c72,#2a5298);}
-.theme2{background: linear-gradient(45deg,#ff512f,#dd2476);}
-.theme3{background: linear-gradient(45deg,#11998e,#38ef7d);}
-.theme4{background: linear-gradient(45deg,#fc466b,#3f5efb);}
 </style>
-
 </head>
-<body class="theme1">
 
-<div id="msg"></div>
+<body style="background:linear-gradient(45deg,#0f2027,#2c5364)">
+
+<div id="splash">🎮 GAME ADMIN</div>
 
 <!-- LOGIN -->
-<div class="box" id="loginBox">
-<h2>Admin Login</h2>
-<input id="id" placeholder="Admin ID">
-<input id="pass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
+<div class="box" id="login" style="display:none">
+  <h2>Admin Login</h2>
+  <input id="user" placeholder="User ID">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
 </div>
 
 <!-- PANEL -->
-<div id="panel">
+<div class="box" id="panel" style="display:none">
 
-<div class="box">
-<h2>Admin Panel</h2>
+<h2>Dashboard</h2>
 
-<input id="userid" placeholder="User ID">
-<input id="amount" type="number" placeholder="Amount">
+<div class="grid">
+  <div class="card">Today Deposit<br><span id="td">0</span></div>
+  <div class="card">Today Withdraw<br><span id="tw">0</span></div>
+  <div class="card">Today Profit<br><span id="tp">0</span></div>
+
+  <div class="card">Yesterday Deposit<br><span>0</span></div>
+  <div class="card">Yesterday Withdraw<br><span>0</span></div>
+
+  <div class="card">Pending Deposit<br><span>0</span></div>
+  <div class="card">Pending Withdraw<br><span>0</span></div>
+
+  <div class="card">Weekly Deposit<br><span>0</span></div>
+  <div class="card">Weekly Withdraw<br><span>0</span></div>
+
+  <div class="card">Monthly Deposit<br><span>0</span></div>
+  <div class="card">Monthly Withdraw<br><span>0</span></div>
+</div>
+
+<hr>
+
+<h3>User Control</h3>
+<input id="uid" placeholder="User ID">
+<input id="amount" placeholder="Amount">
 
 <button onclick="add()">Add Balance</button>
 <button onclick="cut()">Cut Balance</button>
-</div>
+<button onclick="search()">Search User</button>
 
-<div class="box">
-<h3>🎨 Change Theme</h3>
-<button onclick="setTheme('theme1')">Blue</button>
-<button onclick="setTheme('theme2')">Red</button>
-<button onclick="setTheme('theme3')">Green</button>
-<button onclick="setTheme('theme4')">Mix</button>
-</div>
+<hr>
+
+<h3>Bonus System</h3>
+<input id="bonusAmt" placeholder="Bonus Amount">
+<input id="bonusMsg" placeholder="Message">
+
+<button onclick="sendBonus()">Send Bonus</button>
+<button onclick="quickBonus(100)">Festival Bonus</button>
+<button onclick="quickBonus(50)">Event Bonus</button>
+<button onclick="quickBonus(30)">Promotion Bonus</button>
+
+<hr>
+
+<h3>Theme</h3>
+<button onclick="theme1()">Blue</button>
+<button onclick="theme2()">Red</button>
+<button onclick="theme3()">Green</button>
+
+<input type="file" onchange="bgUpload(event)">
 
 <button onclick="logout()">Logout</button>
 
 </div>
 
+<div id="msg"></div>
+
 <script>
 
-// 🔐 LOGIN DETAILS
-let ADMIN_USER = "8252312053";
-let ADMIN_PASS = "Vikash209@";
+// SPLASH
+setTimeout(()=>{
+  document.getElementById("splash").style.display="none";
+  document.getElementById("login").style.display="block";
+},2000);
+
+// LOGIN
+let ADMIN_USER="8252312053";
+let ADMIN_PASS="Vikash209@";
 
 function login(){
-  let id=document.getElementById("id").value;
-  let pass=document.getElementById("pass").value;
+  let u=user.value;
+  let p=pass.value;
 
-  if(id===ADMIN_USER && pass===ADMIN_PASS){
-    document.getElementById("loginBox").style.display="none";
-    document.getElementById("panel").style.display="block";
+  if(u===ADMIN_USER && p===ADMIN_PASS){
+    login.style.display="none";
+    panel.style.display="block";
+    show("Login Success ✅");
   }else{
-    showMsg("❌ Wrong Login","red");
+    show("Wrong Login ❌");
   }
 }
 
-// 💰 BALANCE SYSTEM
+// USERS
+function getUsers(){
+  return JSON.parse(localStorage.getItem("users"))||{};
+}
+function saveUsers(u){
+  localStorage.setItem("users",JSON.stringify(u));
+}
+
+// BALANCE
 function add(){
-  let uid=document.getElementById("userid").value;
-  let amt=parseInt(document.getElementById("amount").value);
+  let u=getUsers();
+  let id=uid.value;
+  let amt=parseInt(amount.value);
 
-  let users=JSON.parse(localStorage.getItem("users"))||{};
+  if(!u[id]) u[id]={balance:0};
+  u[id].balance+=amt;
 
-  if(!users[uid]){
-    users[uid]={balance:0};
-  }
-
-  users[uid].balance+=amt;
-
-  localStorage.setItem("users",JSON.stringify(users));
-
-  showMsg("✅ Balance Added","green");
+  saveUsers(u);
+  show("Added ✅");
 }
 
 function cut(){
-  let uid=document.getElementById("userid").value;
-  let amt=parseInt(document.getElementById("amount").value);
+  let u=getUsers();
+  let id=uid.value;
+  let amt=parseInt(amount.value);
 
-  let users=JSON.parse(localStorage.getItem("users"))||{};
+  if(!u[id]) return show("User not found ❌");
+  u[id].balance-=amt;
 
-  if(users[uid]){
-    users[uid].balance-=amt;
-    localStorage.setItem("users",JSON.stringify(users));
-    showMsg("⚠ Balance Cut","orange");
+  saveUsers(u);
+  show("Cut Done ❌");
+}
+
+function search(){
+  let u=getUsers();
+  if(u[uid.value]){
+    show("Balance: "+u[uid.value].balance);
   }else{
-    showMsg("User Not Found","red");
+    show("User not found ❌");
   }
 }
 
-// 🎨 THEME CHANGE
-function setTheme(t){
-  document.body.className=t;
-  localStorage.setItem("theme",t);
+// BONUS
+function sendBonus(){
+  let u=getUsers();
+  let id=uid.value;
+  let amt=parseInt(bonusAmt.value);
+
+  if(!u[id]) u[id]={balance:0};
+  u[id].balance+=amt;
+
+  saveUsers(u);
+  show("Bonus Sent 💰");
 }
 
-// 🔁 LOAD THEME
-window.onload=function(){
-  let t=localStorage.getItem("theme");
-  if(t){document.body.className=t;}
+function quickBonus(x){
+  bonusAmt.value=x;
+  sendBonus();
 }
 
-// 📢 MESSAGE (5 sec)
-function showMsg(text,color){
-  let m=document.getElementById("msg");
-  m.innerText=text;
-  m.style.background=color;
-  m.style.display="block";
-
-  setTimeout(()=>{m.style.display="none";},5000);
+// THEMES
+function theme1(){
+  document.body.style.background="linear-gradient(45deg,#0f2027,#2c5364)";
+}
+function theme2(){
+  document.body.style.background="linear-gradient(45deg,#ff512f,#dd2476)";
+}
+function theme3(){
+  document.body.style.background="linear-gradient(45deg,#1d976c,#93f9b9)";
 }
 
-// 🚪 LOGOUT
+// BG UPLOAD
+function bgUpload(e){
+  let file=e.target.files[0];
+  let reader=new FileReader();
+
+  reader.onload=function(){
+    document.body.style.background=`url(${reader.result})`;
+    document.body.style.backgroundSize="cover";
+  }
+  reader.readAsDataURL(file);
+}
+
+// LOGOUT
 function logout(){
   location.reload();
+}
+
+// MESSAGE
+function show(t){
+  msg.innerText=t;
+  msg.style.display="block";
+  setTimeout(()=>msg.style.display="none",5000);
 }
 
 </script>
