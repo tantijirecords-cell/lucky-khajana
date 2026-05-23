@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Advanced Admin Panel</title>
+<title>Admin Panel</title>
 
 <style>
 body{
@@ -12,7 +12,7 @@ body{
   transition:0.5s;
 }
 
-/* Splash Screen */
+/* Splash */
 #splash{
   position:fixed;
   width:100%;
@@ -22,11 +22,10 @@ body{
   justify-content:center;
   align-items:center;
   font-size:30px;
-  font-weight:bold;
   z-index:999;
 }
 
-/* Container */
+/* Box */
 .box{
   max-width:400px;
   margin:20px auto;
@@ -50,7 +49,7 @@ button{
   font-weight:bold;
 }
 
-/* Dashboard Grid */
+/* Grid */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -64,7 +63,7 @@ button{
   text-align:center;
 }
 
-/* Message */
+/* Msg */
 #msg{
   position:fixed;
   top:20px;
@@ -75,6 +74,7 @@ button{
   border-radius:8px;
 }
 </style>
+
 </head>
 
 <body style="background:linear-gradient(45deg,#0f2027,#2c5364)">
@@ -95,9 +95,9 @@ button{
 <h2>Dashboard</h2>
 
 <div class="grid">
-  <div class="card">Today Deposit<br><span id="td">0</span></div>
-  <div class="card">Today Withdraw<br><span id="tw">0</span></div>
-  <div class="card">Today Profit<br><span id="tp">0</span></div>
+  <div class="card">Today Deposit<br><span>0</span></div>
+  <div class="card">Today Withdraw<br><span>0</span></div>
+  <div class="card">Today Profit<br><span>0</span></div>
 
   <div class="card">Yesterday Deposit<br><span>0</span></div>
   <div class="card">Yesterday Withdraw<br><span>0</span></div>
@@ -120,7 +120,7 @@ button{
 
 <button onclick="add()">Add Balance</button>
 <button onclick="cut()">Cut Balance</button>
-<button onclick="search()">Search User</button>
+<button onclick="searchUser()">Search User</button>
 
 <hr>
 
@@ -150,90 +150,104 @@ button{
 
 <script>
 
-// SPLASH
+// Splash
 setTimeout(()=>{
   document.getElementById("splash").style.display="none";
   document.getElementById("login").style.display="block";
 },2000);
 
-// LOGIN
-let ADMIN_USER="8252312053";
-let ADMIN_PASS="Vikash209@";
+// Login credentials
+let ADMIN_USER = "8252312053";
+let ADMIN_PASS = "Vikash209@";
 
+// LOGIN FUNCTION (FIXED)
 function login(){
-  let u=user.value;
-  let p=pass.value;
+  let u = document.getElementById("user").value.trim();
+  let p = document.getElementById("pass").value.trim();
 
-  if(u===ADMIN_USER && p===ADMIN_PASS){
-    login.style.display="none";
-    panel.style.display="block";
-    show("Login Success ✅");
-  }else{
-    show("Wrong Login ❌");
+  let loginBox = document.getElementById("login");
+  let panelBox = document.getElementById("panel");
+
+  if(u !== ADMIN_USER){
+    show("Wrong ID ❌");
+    return;
   }
+
+  if(p !== ADMIN_PASS){
+    show("Wrong Password ❌");
+    return;
+  }
+
+  loginBox.style.display="none";
+  panelBox.style.display="block";
+  show("Login Success ✅");
 }
 
-// USERS
+// LocalStorage Users
 function getUsers(){
-  return JSON.parse(localStorage.getItem("users"))||{};
+  return JSON.parse(localStorage.getItem("users")) || {};
 }
-function saveUsers(u){
-  localStorage.setItem("users",JSON.stringify(u));
+function saveUsers(data){
+  localStorage.setItem("users", JSON.stringify(data));
 }
 
-// BALANCE
+// Add Balance
 function add(){
-  let u=getUsers();
-  let id=uid.value;
-  let amt=parseInt(amount.value);
+  let users = getUsers();
+  let id = uid.value;
+  let amt = parseInt(amount.value);
 
-  if(!u[id]) u[id]={balance:0};
-  u[id].balance+=amt;
+  if(!users[id]) users[id]={balance:0};
+  users[id].balance += amt;
 
-  saveUsers(u);
-  show("Added ✅");
+  saveUsers(users);
+  show("Balance Added ✅");
 }
 
+// Cut Balance
 function cut(){
-  let u=getUsers();
-  let id=uid.value;
-  let amt=parseInt(amount.value);
+  let users = getUsers();
+  let id = uid.value;
+  let amt = parseInt(amount.value);
 
-  if(!u[id]) return show("User not found ❌");
-  u[id].balance-=amt;
+  if(!users[id]) return show("User Not Found ❌");
 
-  saveUsers(u);
-  show("Cut Done ❌");
+  users[id].balance -= amt;
+  saveUsers(users);
+
+  show("Balance Cut ❌");
 }
 
-function search(){
-  let u=getUsers();
-  if(u[uid.value]){
-    show("Balance: "+u[uid.value].balance);
+// Search
+function searchUser(){
+  let users = getUsers();
+
+  if(users[uid.value]){
+    show("Balance: " + users[uid.value].balance);
   }else{
-    show("User not found ❌");
+    show("User Not Found ❌");
   }
 }
 
-// BONUS
+// Bonus
 function sendBonus(){
-  let u=getUsers();
-  let id=uid.value;
-  let amt=parseInt(bonusAmt.value);
+  let users = getUsers();
+  let id = uid.value;
+  let amt = parseInt(bonusAmt.value);
 
-  if(!u[id]) u[id]={balance:0};
-  u[id].balance+=amt;
+  if(!users[id]) users[id]={balance:0};
+  users[id].balance += amt;
 
-  saveUsers(u);
+  saveUsers(users);
   show("Bonus Sent 💰");
 }
 
 function quickBonus(x){
-  bonusAmt.value=x;
+  bonusAmt.value = x;
   sendBonus();
 }
 
-// THEMES
+// Theme
 function theme1(){
   document.body.style.background="linear-gradient(45deg,#0f2027,#2c5364)";
 }
@@ -244,28 +258,32 @@ function theme3(){
   document.body.style.background="linear-gradient(45deg,#1d976c,#93f9b9)";
 }
 
-// BG UPLOAD
+// Upload BG
 function bgUpload(e){
-  let file=e.target.files[0];
-  let reader=new FileReader();
+  let file = e.target.files[0];
+  let reader = new FileReader();
 
-  reader.onload=function(){
-    document.body.style.background=`url(${reader.result})`;
+  reader.onload = function(){
+    document.body.style.background = `url(${reader.result})`;
     document.body.style.backgroundSize="cover";
   }
   reader.readAsDataURL(file);
 }
 
-// LOGOUT
+// Logout
 function logout(){
   location.reload();
 }
 
-// MESSAGE
-function show(t){
-  msg.innerText=t;
-  msg.style.display="block";
-  setTimeout(()=>msg.style.display="none",5000);
+// Message
+function show(text){
+  let m = document.getElementById("msg");
+  m.innerText = text;
+  m.style.display="block";
+
+  setTimeout(()=>{
+    m.style.display="none";
+  },5000);
 }
 
 </script>
