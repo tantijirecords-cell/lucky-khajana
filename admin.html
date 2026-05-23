@@ -2,60 +2,109 @@
 <html>
 <head>
   <title>Admin Panel</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: white;
+      text-align: center;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background: yellow;
+      font-weight: bold;
+    }
+
+    #msg {
+      margin-top: 10px;
+      font-weight: bold;
+      color: lime;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Admin Panel</h2>
+<div class="box">
+  <h2>⚙️ Admin Panel</h2>
 
-<p>User Name:</p>
-<input id="user">
+  <p>User ID:</p>
+  <input id="uid" placeholder="Enter User ID">
 
-<p>Amount:</p>
-<input id="amount">
+  <p>Amount:</p>
+  <input id="amount" placeholder="Enter Amount">
 
-<br><br>
+  <br>
 
-<button onclick="add()">Add Balance</button>
-<button onclick="cut()">Cut Balance</button>
+  <button onclick="add()">Add Balance</button>
+  <button onclick="cut()">Cut Balance</button>
 
-<p id="msg"></p>
+  <p id="msg"></p>
+</div>
 
 <script>
 
-// load data
-let users = JSON.parse(localStorage.getItem("users")) || {
-  "rahul": 100,
-  "aman": 200
-};
+let users = JSON.parse(localStorage.getItem("users")) || {};
 
 function save() {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
 function add() {
-  let u = document.getElementById("user").value;
-  let a = Number(document.getElementById("amount").value);
+  let uid = document.getElementById("uid").value;
+  let amt = Number(document.getElementById("amount").value);
 
-  if(users[u] != undefined) {
-    users[u] += a;
+  if(users[uid]) {
+    users[uid].balance += amt;
     save();
-    document.getElementById("msg").innerText = "Balance Added";
+    showMsg("✅ Balance Added");
   } else {
-    document.getElementById("msg").innerText = "User not found";
+    showMsg("❌ User Not Found");
   }
 }
 
 function cut() {
-  let u = document.getElementById("user").value;
-  let a = Number(document.getElementById("amount").value);
+  let uid = document.getElementById("uid").value;
+  let amt = Number(document.getElementById("amount").value);
 
-  if(users[u] != undefined) {
-    users[u] -= a;
+  if(users[uid]) {
+    users[uid].balance -= amt;
     save();
-    document.getElementById("msg").innerText = "Balance Cut";
+    showMsg("⚠️ Balance Cut");
   } else {
-    document.getElementById("msg").innerText = "User not found";
+    showMsg("❌ User Not Found");
   }
+}
+
+function showMsg(text) {
+  let m = document.getElementById("msg");
+  m.innerText = text;
+
+  setTimeout(() => {
+    m.innerText = "";
+  }, 5000);
 }
 
 </script>
