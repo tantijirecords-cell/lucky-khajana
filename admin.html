@@ -74,7 +74,6 @@ button{
   border-radius:8px;
 }
 </style>
-
 </head>
 
 <body style="background:linear-gradient(45deg,#0f2027,#2c5364)">
@@ -99,18 +98,16 @@ button{
   <div class="card">Today Withdraw<br><span>0</span></div>
   <div class="card">Today Profit<br><span>0</span></div>
 
-  <div class="card">Yesterday Deposit<br><span>0</span></div>
-  <div class="card">Yesterday Withdraw<br><span>0</span></div>
-
-  <div class="card">Pending Deposit<br><span>0</span></div>
-  <div class="card">Pending Withdraw<br><span>0</span></div>
-
-  <div class="card">Weekly Deposit<br><span>0</span></div>
-  <div class="card">Weekly Withdraw<br><span>0</span></div>
-
-  <div class="card">Monthly Deposit<br><span>0</span></div>
-  <div class="card">Monthly Withdraw<br><span>0</span></div>
+  <div class="card">Pending Deposit<br><span>-</span></div>
+  <div class="card">Pending Withdraw<br><span>-</span></div>
 </div>
+
+<hr>
+
+<h3>Pending Requests</h3>
+<button onclick="showPendingDeposit()">Pending Deposit</button>
+<button onclick="showPendingWithdraw()">Pending Withdraw</button>
+<div id="pendingList"></div>
 
 <hr>
 
@@ -126,12 +123,10 @@ button{
 
 <h3>Bonus System</h3>
 <input id="bonusAmt" placeholder="Bonus Amount">
-<input id="bonusMsg" placeholder="Message">
 
 <button onclick="sendBonus()">Send Bonus</button>
 <button onclick="quickBonus(100)">Festival Bonus</button>
 <button onclick="quickBonus(50)">Event Bonus</button>
-<button onclick="quickBonus(30)">Promotion Bonus</button>
 
 <hr>
 
@@ -152,138 +147,181 @@ button{
 
 // Splash
 setTimeout(()=>{
-  document.getElementById("splash").style.display="none";
-  document.getElementById("login").style.display="block";
+  splash.style.display="none";
+  login.style.display="block";
 },2000);
 
-// Login credentials
-let ADMIN_USER = "8252312053";
-let ADMIN_PASS = "Vikash209@";
+// Login
+let ADMIN_USER="8252312053";
+let ADMIN_PASS="Vikash209@";
 
-// LOGIN FUNCTION (FIXED)
 function login(){
-  let u = document.getElementById("user").value.trim();
-  let p = document.getElementById("pass").value.trim();
+  let u=user.value.trim();
+  let p=pass.value.trim();
 
-  let loginBox = document.getElementById("login");
-  let panelBox = document.getElementById("panel");
-
-  if(u !== ADMIN_USER){
-    show("Wrong ID ❌");
-    return;
+  if(u!==ADMIN_USER){
+    show("Wrong ID ❌"); return;
+  }
+  if(p!==ADMIN_PASS){
+    show("Wrong Password ❌"); return;
   }
 
-  if(p !== ADMIN_PASS){
-    show("Wrong Password ❌");
-    return;
-  }
-
-  loginBox.style.display="none";
-  panelBox.style.display="block";
+  login.style.display="none";
+  panel.style.display="block";
   show("Login Success ✅");
 }
 
-// LocalStorage Users
+// Users
 function getUsers(){
-  return JSON.parse(localStorage.getItem("users")) || {};
+  return JSON.parse(localStorage.getItem("users"))||{};
 }
-function saveUsers(data){
-  localStorage.setItem("users", JSON.stringify(data));
+function saveUsers(d){
+  localStorage.setItem("users",JSON.stringify(d));
 }
 
-// Add Balance
+// Pending
+function getPending(){
+  return JSON.parse(localStorage.getItem("pending"))||{deposit:[],withdraw:[]};
+}
+function savePending(d){
+  localStorage.setItem("pending",JSON.stringify(d));
+}
+
+// Show Pending Deposit
+function showPendingDeposit(){
+  let data=getPending();
+  let html="<h4>Deposit List</h4>";
+
+  data.deposit.forEach((x,i)=>{
+    html+=`
+    <div style="background:#222;padding:10px;margin:5px">
+    ID:${x.id}<br>Amount:${x.amount}<br>
+    <button onclick="acceptDeposit(${i})">Accept</button>
+    <button onclick="rejectDeposit(${i})">Reject</button>
+    </div>`;
+  });
+
+  pendingList.innerHTML=html;
+}
+
+// Show Pending Withdraw
+function showPendingWithdraw(){
+  let data=getPending();
+  let html="<h4>Withdraw List</h4>";
+
+  data.withdraw.forEach((x,i)=>{
+    html+=`
+    <div style="background:#222;padding:10px;margin:5px">
+    ID:${x.id}<br>Amount:${x.amount}<br>
+    <button onclick="acceptWithdraw(${i})">Accept</button>
+    <button onclick="rejectWithdraw(${i})">Reject</button>
+    </div>`;
+  });
+
+  pendingList.innerHTML=html;
+}
+
+// Accept/Reject
+function acceptDeposit(i){
+  let p=getPending(),u=getUsers();
+  let r=p.deposit[i];
+
+  if(!u[r.id]) u[r.id]={balance:0};
+  u[r.id].balance+=r.amount;
+
+  p.deposit.splice(i,1);
+  saveUsers(u); savePending(p);
+  show("Deposit Accepted ✅");
+  showPendingDeposit();
+}
+
+function rejectDeposit(i){
+  let p=getPending();
+  p.deposit.splice(i,1);
+  savePending(p);
+  show("Rejected ❌");
+  showPendingDeposit();
+}
+
+function acceptWithdraw(i){
+  let p=getPending(),u=getUsers();
+  let r=p.withdraw[i];
+
+  if(!u[r.id]) return show("User not found");
+
+  u[r.id].balance-=r.amount;
+
+  p.withdraw.splice(i,1);
+  saveUsers(u); savePending(p);
+  show("Withdraw Done ✅");
+  showPendingWithdraw();
+}
+
+function rejectWithdraw(i){
+  let p=getPending();
+  p.withdraw.splice(i,1);
+  savePending(p);
+  show("Rejected ❌");
+  showPendingWithdraw();
+}
+
+// Balance
 function add(){
-  let users = getUsers();
-  let id = uid.value;
-  let amt = parseInt(amount.value);
-
-  if(!users[id]) users[id]={balance:0};
-  users[id].balance += amt;
-
-  saveUsers(users);
-  show("Balance Added ✅");
+  let u=getUsers(),id=uid.value,amt=parseInt(amount.value);
+  if(!u[id]) u[id]={balance:0};
+  u[id].balance+=amt;
+  saveUsers(u);
+  show("Added ✅");
 }
 
-// Cut Balance
 function cut(){
-  let users = getUsers();
-  let id = uid.value;
-  let amt = parseInt(amount.value);
-
-  if(!users[id]) return show("User Not Found ❌");
-
-  users[id].balance -= amt;
-  saveUsers(users);
-
-  show("Balance Cut ❌");
+  let u=getUsers(),id=uid.value,amt=parseInt(amount.value);
+  if(!u[id]) return show("Not found");
+  u[id].balance-=amt;
+  saveUsers(u);
+  show("Cut ❌");
 }
 
-// Search
 function searchUser(){
-  let users = getUsers();
-
-  if(users[uid.value]){
-    show("Balance: " + users[uid.value].balance);
-  }else{
-    show("User Not Found ❌");
-  }
+  let u=getUsers();
+  if(u[uid.value]) show("Balance: "+u[uid.value].balance);
+  else show("Not found");
 }
 
 // Bonus
 function sendBonus(){
-  let users = getUsers();
-  let id = uid.value;
-  let amt = parseInt(bonusAmt.value);
-
-  if(!users[id]) users[id]={balance:0};
-  users[id].balance += amt;
-
-  saveUsers(users);
+  let u=getUsers(),id=uid.value,amt=parseInt(bonusAmt.value);
+  if(!u[id]) u[id]={balance:0};
+  u[id].balance+=amt;
+  saveUsers(u);
   show("Bonus Sent 💰");
 }
 
 function quickBonus(x){
-  bonusAmt.value = x;
+  bonusAmt.value=x;
   sendBonus();
 }
 
 // Theme
-function theme1(){
-  document.body.style.background="linear-gradient(45deg,#0f2027,#2c5364)";
-}
-function theme2(){
-  document.body.style.background="linear-gradient(45deg,#ff512f,#dd2476)";
-}
-function theme3(){
-  document.body.style.background="linear-gradient(45deg,#1d976c,#93f9b9)";
-}
+function theme1(){document.body.style.background="linear-gradient(45deg,#0f2027,#2c5364)"}
+function theme2(){document.body.style.background="linear-gradient(45deg,#ff512f,#dd2476)"}
+function theme3(){document.body.style.background="linear-gradient(45deg,#1d976c,#93f9b9)"}
 
-// Upload BG
+// BG Upload
 function bgUpload(e){
-  let file = e.target.files[0];
-  let reader = new FileReader();
-
-  reader.onload = function(){
-    document.body.style.background = `url(${reader.result})`;
-    document.body.style.backgroundSize="cover";
-  }
-  reader.readAsDataURL(file);
+  let r=new FileReader();
+  r.onload=()=>{document.body.style.background=`url(${r.result})`;};
+  r.readAsDataURL(e.target.files[0]);
 }
 
 // Logout
-function logout(){
-  location.reload();
-}
+function logout(){location.reload();}
 
-// Message
-function show(text){
-  let m = document.getElementById("msg");
-  m.innerText = text;
-  m.style.display="block";
-
-  setTimeout(()=>{
-    m.style.display="none";
-  },5000);
+// Msg
+function show(t){
+  msg.innerText=t;
+  msg.style.display="block";
+  setTimeout(()=>msg.style.display="none",5000);
 }
 
 </script>
