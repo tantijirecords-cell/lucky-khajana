@@ -1412,6 +1412,27 @@ window.addEventListener('load',function(){
     if(AV.cvs){AV.cvs.width=AV.cvs.offsetWidth;AV.cvs.height=AV.cvs.offsetHeight;}
   });
 });
+</script><h2>User Login</h2>
+
+<input id="username" placeholder="Enter name">
+<button onclick="login()">Login</button>
+
+<p id="info"></p>
+
+<script>
+function login() {
+  let name = document.getElementById("username").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+
+  if(!users[name]) {
+    users[name] = {balance: 0};
+  }
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  document.getElementById("info").innerText = "Logged in as " + name;
+}
 </script>
 </body>
 </html>
