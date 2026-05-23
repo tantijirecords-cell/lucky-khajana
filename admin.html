@@ -1,1 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
 
+<h2>Admin Panel</h2>
+
+<p>User Name:</p>
+<input id="user">
+
+<p>Amount:</p>
+<input id="amount">
+
+<br><br>
+
+<button onclick="add()">Add Balance</button>
+<button onclick="cut()">Cut Balance</button>
+
+<p id="msg"></p>
+
+<script>
+
+let users = {
+  "rahul": 100,
+  "aman": 200
+};
+
+function add() {
+  let u = document.getElementById("user").value;
+  let a = Number(document.getElementById("amount").value);
+
+  if(users[u] != undefined) {
+    users[u] += a;
+    document.getElementById("msg").innerText = "Balance Added";
+  } else {
+    document.getElementById("msg").innerText = "User not found";
+  }
+}
+
+function cut() {
+  let u = document.getElementById("user").value;
+  let a = Number(document.getElementById("amount").value);
+
+  if(users[u] != undefined) {
+    users[u] -= a;
+    document.getElementById("msg").innerText = "Balance Cut";
+  } else {
+    document.getElementById("msg").innerText = "User not found";
+  }
+}
+
+</script>
+
+</body>
+</html>
