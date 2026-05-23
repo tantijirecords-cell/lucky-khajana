@@ -22,10 +22,15 @@
 
 <script>
 
-let users = {
+// load data
+let users = JSON.parse(localStorage.getItem("users")) || {
   "rahul": 100,
   "aman": 200
 };
+
+function save() {
+  localStorage.setItem("users", JSON.stringify(users));
+}
 
 function add() {
   let u = document.getElementById("user").value;
@@ -33,6 +38,7 @@ function add() {
 
   if(users[u] != undefined) {
     users[u] += a;
+    save();
     document.getElementById("msg").innerText = "Balance Added";
   } else {
     document.getElementById("msg").innerText = "User not found";
@@ -45,6 +51,7 @@ function cut() {
 
   if(users[u] != undefined) {
     users[u] -= a;
+    save();
     document.getElementById("msg").innerText = "Balance Cut";
   } else {
     document.getElementById("msg").innerText = "User not found";
